@@ -15,7 +15,6 @@ use Laminas\Mvc\View;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class ServiceListenerFactory implements FactoryInterface
 {
@@ -113,7 +112,9 @@ class ServiceListenerFactory implements FactoryInterface
      * - interface: the name of the interface that modules can implement as string
      * - method: the name of the method that modules have to implement as string
      *
-     * @param  ServiceLocatorInterface  $serviceLocator
+     * @param  ContainerInterface  $container
+     * @param  string              $requestedName
+     * @param  null|array          $options
      * @return ServiceListenerInterface
      * @throws ServiceNotCreatedException for invalid ServiceListener service
      * @throws ServiceNotCreatedException For invalid configurations.

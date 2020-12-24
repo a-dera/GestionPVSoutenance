@@ -6,12 +6,17 @@
  * @license   https://github.com/laminas/laminas-router/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Laminas\Router\Http;
 
 use Laminas\Router\Exception;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\Stdlib\RequestInterface as Request;
+use Laminas\Uri\UriInterface;
 use Traversable;
+
+use function preg_match;
 
 /**
  * Hostname route.
@@ -283,16 +288,17 @@ class Hostname implements RouteInterface
     public function match(Request $request)
     {
         if (! method_exists($request, 'getUri')) {
-            return;
+            return null;
         }
 
+        /** @var UriInterface $uri */
         $uri  = $request->getUri();
-        $host = $uri->getHost();
+        $host = $uri->getHost() ?? '';
 
         $result = preg_match('(^' . $this->regex . '$)', $host, $matches);
 
         if (! $result) {
-            return;
+            return null;
         }
 
         $params = [];

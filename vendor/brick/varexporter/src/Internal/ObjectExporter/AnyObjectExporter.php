@@ -26,6 +26,8 @@ class AnyObjectExporter extends ObjectExporter
 
     /**
      * {@inheritDoc}
+     *
+     * @psalm-suppress MixedAssignment
      */
     public function export($object, \ReflectionObject $reflectionObject, array $path, array $parentIds) : array
     {
@@ -88,6 +90,9 @@ class AnyObjectExporter extends ObjectExporter
                 $lines[] = '';
 
                 foreach ($publicProperties as $name => $value) {
+                    /** @psalm-suppress RedundantCast See: https://github.com/vimeo/psalm/issues/4891 */
+                    $name = (string) $name;
+
                     $newPath = $path;
                     $newPath[] = $name;
 

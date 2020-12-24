@@ -6,6 +6,8 @@
  * @license   https://github.com/laminas/laminas-router/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Laminas\Router\Http;
 
 use Laminas\I18n\Translator\TranslatorInterface as Translator;
@@ -319,7 +321,7 @@ class Segment implements RouteInterface
                         $skip = false;
                     }
 
-                    $path .= $this->encode($mergedParams[$part[1]]);
+                    $path .= $this->encode((string) $mergedParams[$part[1]]);
 
                     $this->assembledParams[] = $part[1];
                     break;
@@ -383,7 +385,7 @@ class Segment implements RouteInterface
         }
 
         if ($pathOffset !== null) {
-            $result = preg_match('(\G' . $regex . ')', $path, $matches, null, $pathOffset);
+            $result = preg_match('(\G' . $regex . ')', $path, $matches, 0, $pathOffset);
         } else {
             $result = preg_match('(^' . $regex . '$)', $path, $matches);
         }
@@ -442,14 +444,13 @@ class Segment implements RouteInterface
      * @param  string $value
      * @return string
      */
-    protected function encode($value)
+    protected function encode(string $value)
     {
-        $key = (string) $value;
-        if (! isset(static::$cacheEncode[$key])) {
-            static::$cacheEncode[$key] = rawurlencode($value);
-            static::$cacheEncode[$key] = strtr(static::$cacheEncode[$key], static::$urlencodeCorrectionMap);
+        if (! isset(static::$cacheEncode[$value])) {
+            static::$cacheEncode[$value] = rawurlencode($value);
+            static::$cacheEncode[$value] = strtr(static::$cacheEncode[$value], static::$urlencodeCorrectionMap);
         }
-        return static::$cacheEncode[$key];
+        return static::$cacheEncode[$value];
     }
 
     /**

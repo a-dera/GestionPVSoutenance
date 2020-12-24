@@ -14,21 +14,26 @@ use Laminas\EventManager\AbstractListenerAggregate;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\Mvc\Controller\MiddlewareController;
 use Laminas\Mvc\Exception\InvalidMiddlewareException;
-use Laminas\Mvc\Exception\ReachedFinalHandlerException;
 use Laminas\Psr7Bridge\Psr7Response;
-use Laminas\Router\RouteMatch;
-use Laminas\Stratigility\Delegate\CallableDelegateDecorator;
 use Laminas\Stratigility\MiddlewarePipe;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
-use Psr\Http\Message\ServerRequestInterface as PsrServerRequestInterface;
 
+use function sprintf;
+use function trigger_error;
+
+use const E_USER_DEPRECATED;
+
+/**
+ * @deprecated Since 3.2.0
+ */
 class MiddlewareListener extends AbstractListenerAggregate
 {
     /**
      * Attach listeners to an event manager
      *
      * @param  EventManagerInterface $events
+     * @param  int                   $priority
      * @return void
      */
     public function attach(EventManagerInterface $events, $priority = 1)
@@ -53,6 +58,12 @@ class MiddlewareListener extends AbstractListenerAggregate
         if (false === $middleware) {
             return;
         }
+
+        trigger_error(sprintf(
+            'Dispatching middleware with %s is deprecated since 3.2.0;'
+            . ' please use the laminas/laminas-mvc-middleware package instead',
+            self::class
+        ), E_USER_DEPRECATED);
 
         $request        = $event->getRequest();
         $application    = $event->getApplication();
@@ -88,8 +99,6 @@ class MiddlewareListener extends AbstractListenerAggregate
                 $event
             ))->dispatch($request, $response);
         } catch (\Throwable $ex) {
-            $caughtException = $ex;
-        } catch (\Exception $ex) {  // @TODO clean up once PHP 7 requirement is enforced
             $caughtException = $ex;
         }
 

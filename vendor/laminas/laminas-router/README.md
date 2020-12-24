@@ -18,5 +18,20 @@ request and responses, and provides capabilities around:
 Additionally, it supports combinations of different route types in tree
 structures, allowing for fast, b-tree lookups.
 
-- File issues at https://github.com/laminas/laminas-router/issues
-- Documentation is at https://docs.laminas.dev/laminas-router
+## Installation
+
+Run the following to install this library:
+
+```bash
+$ composer require laminas/laminas-router
+```
+
+## Documentation
+
+Browse the documentation online at https://docs.laminas.dev/laminas-router/
+
+## Support
+
+* [Issues](https://github.com/laminas/laminas-router/issues/)
+* [Chat](https://laminas.dev/chat/)
+* [Forum](https://discourse.laminas.dev/)

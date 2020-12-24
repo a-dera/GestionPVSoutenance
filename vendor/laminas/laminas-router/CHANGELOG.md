@@ -2,6 +2,109 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 3.4.4 - 2020-12-16
+
+
+-----
+
+### Release Notes for [3.4.4](https://github.com/laminas/laminas-router/milestone/8)
+
+3.4.x bugfix release (patch)
+
+### 3.4.4
+
+- Total issues resolved: **1**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+#### Bug
+
+ - [24: cast to string when calling rawurlencode() within Wildcard router](https://github.com/laminas/laminas-router/pull/24) thanks to @gkralik
+
+## 3.4.3 - 2020-12-07
+
+
+-----
+
+### Release Notes for [3.4.3](https://github.com/laminas/laminas-router/milestone/7)
+
+3.4.x bugfix release (patch)
+
+### 3.4.3
+
+- Total issues resolved: **1**
+- Total pull requests resolved: **2**
+- Total contributors: **3**
+
+#### Bug
+
+ - [21: Fix type issue in Hostname route uncovered by strict types](https://github.com/laminas/laminas-router/pull/21) thanks to @Xerkus and @lklapa
+
+#### Bug,Enhancement
+
+ - [19: Removed redundant cast](https://github.com/laminas/laminas-router/pull/19) thanks to @matbech
+
+## 3.4.2 - 2020-11-23
+
+
+-----
+
+### Release Notes for [3.4.2](https://github.com/laminas/laminas-router/milestone/6)
+
+3.4.x bugfix release (patch)
+
+### 3.4.2
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+#### Bug
+
+ - [17: bugfix: re-add `zendframework/zend-router` replacement](https://github.com/laminas/laminas-router/pull/17) thanks to @boesing
+
+## 3.4.1 - 2020-11-19
+
+
+-----
+
+### Release Notes for [3.4.1](https://github.com/laminas/laminas-router/milestone/4)
+
+3.4.x bugfix release (patch)
+
+### 3.4.1
+
+- Total issues resolved: **1**
+- Total pull requests resolved: **1**
+- Total contributors: **2**
+
+#### Bug
+
+ - [15: Cast to string when calling rawurlencode within Regex router](https://github.com/laminas/laminas-router/pull/15) thanks to @weierophinney and @matbech
+
+## 4.0.0 - TBD
+
+### Added
+
+- [#12](https://github.com/laminas/laminas-router/pull/12) Adds PHP 8.0 support
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [zendframework/zend-router#44](https://github.com/zendframework/zend-router/pull/44) removes support
+  for PHP versions below PHP 7.1.
+
+### Fixed
+
+- Nothing.
+
 ## 3.3.2 - 2020-03-29
 
 ### Added

@@ -6,6 +6,8 @@
  * @license   https://github.com/laminas/laminas-router/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Laminas\Router\Http;
 
 use Laminas\Router\Exception;
@@ -92,7 +94,7 @@ class Literal implements RouteInterface
         $path = $uri->getPath();
 
         if ($pathOffset !== null) {
-            if ($pathOffset >= 0 && strlen($path) >= $pathOffset && ! empty($this->route)) {
+            if ($pathOffset >= 0 && strlen((string) $path) >= $pathOffset && ! empty($this->route)) {
                 if (strpos($path, $this->route, $pathOffset) === $pathOffset) {
                     return new RouteMatch($this->defaults, strlen($this->route));
                 }

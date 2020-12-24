@@ -77,7 +77,7 @@ class DefaultRenderingStrategy extends AbstractListenerAggregate
      *
      * @param  MvcEvent $e
      * @return Response|null
-     * @throws \Exception
+     * @throws \Exception|\Throwable
      */
     public function render(MvcEvent $e)
     {

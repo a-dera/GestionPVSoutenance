@@ -6,6 +6,8 @@
  * @license   https://github.com/laminas/laminas-router/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Laminas\Router\Http;
 
 use Laminas\Router\Exception;
@@ -173,7 +175,7 @@ class Wildcard implements RouteInterface
                     continue;
                 }
 
-                $elements[] = rawurlencode($key) . $this->keyValueDelimiter . rawurlencode($value);
+                $elements[] = rawurlencode($key) . $this->keyValueDelimiter . rawurlencode((string) $value);
                 $this->assembledParams[] = $key;
             }
 

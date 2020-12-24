@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 3.2.0 - 2020-12-14
+
+### Added
+
+- [#69](https://github.com/laminas/laminas-mvc/pull/69) Adds PHP 8.0 support
+- [zendframework/zend-mvc#282](https://github.com/zendframework/zend-mvc/pull/282) Adds a full
+  controller namespace as additional event manager identifier for
+  implementations of AbstractController
+
+### Deprecated
+
+- [#51](https://github.com/laminas/laminas-mvc/pull/51) Deprecates MiddlewareListener. Optional support for dispatching middleware, middleware pipes and handlers is moved to laminas/laminas-mvc-middleware package
+
+### Removed
+
+- [#69](https://github.com/laminas/laminas-mvc/pull/69) Removes PHP support prior 7.3.0
+
+
+-----
+
+### Release Notes for [3.2.0](https://github.com/laminas/laminas-mvc/milestone/1)
+
+
+
+### 3.2.0
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **2**
+- Total contributors: **2**
+
+#### Enhancement
+
+ - [69: PHP 8.0 support](https://github.com/laminas/laminas-mvc/pull/69) thanks to @snapshotpl
+
+ - [51: Deprecate middleware listener](https://github.com/laminas/laminas-mvc/pull/51) thanks to @Xerkus
+
 ## 3.1.1 - 2017-11-24
 
 ### Added
@@ -19,7 +55,7 @@ All notable changes to this project will be documented in this file, in reverse 
 ### Fixed
 
 - [zendframework/zend-mvc#247](https://github.com/zendframework/zend-mvc/pull/247) fixes bug in
-  controller plugin Forward, introduced in 2.1.0, where problem listeners were
+  controller plugin Forward, introduced in 3.1.0, where problem listeners were
   not detached for forwarded controller dispatch
 
 ## 3.1.0 - 2017-05-01

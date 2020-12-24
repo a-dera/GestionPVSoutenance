@@ -6,19 +6,19 @@
     'aliases' => 
     array (
     ),
-    'reference' => '2dedd73f2c2f09ea78960bae1a8b3a74290f90fe',
+    'reference' => '5510dba6a09687cf474a72b2d025a258e34e6675',
     'name' => 'laminas/laminas-mvc-skeleton',
   ),
   'versions' => 
   array (
     'brick/varexporter' => 
     array (
-      'pretty_version' => '0.3.2',
-      'version' => '0.3.2.0',
+      'pretty_version' => '0.3.3',
+      'version' => '0.3.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '411110b797c6b1ecf947a0eec17ffaa59284f5a0',
+      'reference' => '736378d357a189a692390bbc9e0eed835b079805',
     ),
     'container-interop/container-interop' => 
     array (
@@ -297,12 +297,12 @@
     ),
     'laminas/laminas-escaper' => 
     array (
-      'pretty_version' => '2.6.1',
-      'version' => '2.6.1.0',
+      'pretty_version' => '2.7.0',
+      'version' => '2.7.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '25f2a053eadfa92ddacb609dcbbc39362610da70',
+      'reference' => '5e04bc5ae5990b17159d79d331055e2c645e5cc5',
     ),
     'laminas/laminas-eventmanager' => 
     array (
@@ -405,12 +405,12 @@
     ),
     'laminas/laminas-mvc' => 
     array (
-      'pretty_version' => '3.1.1',
-      'version' => '3.1.1.0',
+      'pretty_version' => '3.2.0',
+      'version' => '3.2.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ead09f8ab5ff0e562dbd0198c7f67523c2f61980',
+      'reference' => '88da7200cf8f5a970c35d91717a5c4db94981e5e',
     ),
     'laminas/laminas-mvc-console' => 
     array (
@@ -491,7 +491,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '2dedd73f2c2f09ea78960bae1a8b3a74290f90fe',
+      'reference' => '5510dba6a09687cf474a72b2d025a258e34e6675',
     ),
     'laminas/laminas-paginator' => 
     array (
@@ -513,17 +513,17 @@
     ),
     'laminas/laminas-router' => 
     array (
-      'pretty_version' => '3.3.2',
-      'version' => '3.3.2.0',
+      'pretty_version' => '3.4.4',
+      'version' => '3.4.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '01a6905202ad41a42ba63d60260eba32b89e18c7',
+      'reference' => '2a7068508af4de67d80ea292e0cc7c37563a33c6',
     ),
     'laminas/laminas-servicemanager' => 
     array (
-      'pretty_version' => '3.4.1',
-      'version' => '3.4.1.0',
+      'pretty_version' => '3.5.1',
+      'version' => '3.5.1.0',
       'aliases' => 
       array (
       ),
@@ -585,12 +585,12 @@
     ),
     'laminas/laminas-view' => 
     array (
-      'pretty_version' => '2.11.4',
-      'version' => '2.11.4.0',
+      'pretty_version' => '2.11.5',
+      'version' => '2.11.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3bbb2e94287383604c898284a18d2d06cf17301e',
+      'reference' => '16611035d7b3a6ef2c636a9268c213146123b663',
     ),
     'laminas/laminas-zendframework-bridge' => 
     array (
@@ -616,12 +616,12 @@
     ),
     'nikic/php-parser' => 
     array (
-      'pretty_version' => 'v4.10.2',
-      'version' => '4.10.2.0',
+      'pretty_version' => 'v4.10.4',
+      'version' => '4.10.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '658f1be311a230e0907f5dfe0213742aff0596de',
+      'reference' => 'c6d052fc58cb876152f89f532b95a8d7907e7f0e',
     ),
     'phar-io/manifest' => 
     array (
@@ -1115,7 +1115,7 @@
     array (
       'replaced' => 
       array (
-        0 => '2.6.1',
+        0 => '^2.6.1',
       ),
     ),
     'zendframework/zend-eventmanager' => 
@@ -1199,7 +1199,7 @@
     array (
       'replaced' => 
       array (
-        0 => '3.1.1',
+        0 => '^3.1.1',
       ),
     ),
     'zendframework/zend-mvc-console' => 
@@ -1332,7 +1332,7 @@
     array (
       'replaced' => 
       array (
-        0 => '2.11.4',
+        0 => '^2.11.4',
       ),
     ),
     'zfcampus/zf-development-mode' => 

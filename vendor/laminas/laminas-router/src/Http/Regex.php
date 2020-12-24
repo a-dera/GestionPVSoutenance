@@ -6,6 +6,8 @@
  * @license   https://github.com/laminas/laminas-router/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Laminas\Router\Http;
 
 use Laminas\Router\Exception;
@@ -113,7 +115,7 @@ class Regex implements RouteInterface
         $path = $uri->getPath();
 
         if ($pathOffset !== null) {
-            $result = preg_match('(\G' . $this->regex . ')', $path, $matches, null, $pathOffset);
+            $result = preg_match('(\G' . $this->regex . ')', $path, $matches, 0, $pathOffset);
         } else {
             $result = preg_match('(^' . $this->regex . '$)', $path, $matches);
         }
@@ -153,7 +155,7 @@ class Regex implements RouteInterface
             $spec = '%' . $key . '%';
 
             if (strpos($url, $spec) !== false) {
-                $url = str_replace($spec, rawurlencode($value), $url);
+                $url = str_replace($spec, rawurlencode((string) $value), $url);
 
                 $this->assembledParams[] = $key;
             }

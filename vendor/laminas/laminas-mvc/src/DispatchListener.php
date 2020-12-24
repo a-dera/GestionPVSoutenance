@@ -84,7 +84,6 @@ class DispatchListener extends AbstractListenerAggregate
             ? $routeMatch->getParam('controller', 'not-found')
             : 'not-found';
         $application       = $e->getApplication();
-        $events            = $application->getEventManager();
         $controllerManager = $this->controllerManager;
 
 
