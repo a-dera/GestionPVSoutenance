@@ -8,7 +8,6 @@
     ],
     "homepage": "https://laminas.dev",
     "support": {
-        "docs": "https://docs.laminas.dev/laminas-development-mode/",
         "issues": "https://github.com/laminas/laminas-development-mode/issues",
         "source": "https://github.com/laminas/laminas-development-mode",
         "rss": "https://github.com/laminas/laminas-development-mode/releases.atom",
@@ -18,20 +17,14 @@
     "config": {
         "sort-packages": true
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.2.x-dev",
-            "dev-develop": "3.3.x-dev"
-        }
-    },
     "require": {
-        "php": "^5.6 || ^7.0",
+        "php": "^7.3 || ~8.0.0",
         "laminas/laminas-zendframework-bridge": "^1.0"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~1.0.0",
         "mikey179/vfsstream": "^1.6.5",
-        "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.5"
+        "phpunit/phpunit": "^9.3"
     },
     "autoload": {
         "psr-4": {
@@ -57,6 +50,6 @@
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     },
     "replace": {
-        "zfcampus/zf-development-mode": "self.version"
+        "zfcampus/zf-development-mode": "^3.2.0"
     }
 }

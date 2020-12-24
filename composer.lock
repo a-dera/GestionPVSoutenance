@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4ec309cef0d4080cffe44bc03fa45a3",
+    "content-hash": "18ad225a71171ceb3de06eb1bd7e49e9",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -1517,40 +1517,34 @@
         },
         {
             "name": "laminas/laminas-development-mode",
-            "version": "3.2.0",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-development-mode.git",
-                "reference": "203cf2f61dbea1489cb6e0c42ffdc987ebe4f796"
+                "reference": "11b2adc8837e4419a5b31e2a7ae59f06636d4096"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-development-mode/zipball/203cf2f61dbea1489cb6e0c42ffdc987ebe4f796",
-                "reference": "203cf2f61dbea1489cb6e0c42ffdc987ebe4f796",
+                "url": "https://api.github.com/repos/laminas/laminas-development-mode/zipball/11b2adc8837e4419a5b31e2a7ae59f06636d4096",
+                "reference": "11b2adc8837e4419a5b31e2a7ae59f06636d4096",
                 "shasum": ""
             },
             "require": {
                 "laminas/laminas-zendframework-bridge": "^1.0",
-                "php": "^5.6 || ^7.0"
+                "php": "^7.3 || ~8.0.0"
             },
             "replace": {
-                "zfcampus/zf-development-mode": "self.version"
+                "zfcampus/zf-development-mode": "^3.2.0"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~1.0.0",
                 "mikey179/vfsstream": "^1.6.5",
-                "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.5"
+                "phpunit/phpunit": "^9.3"
             },
             "bin": [
                 "bin/laminas-development-mode"
             ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.2.x-dev",
-                    "dev-develop": "3.3.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Laminas\\DevelopmentMode\\": "src/"
@@ -1568,13 +1562,18 @@
             ],
             "support": {
                 "chat": "https://laminas.dev/chat",
-                "docs": "https://docs.laminas.dev/laminas-development-mode/",
                 "forum": "https://discourse.laminas.dev",
                 "issues": "https://github.com/laminas/laminas-development-mode/issues",
                 "rss": "https://github.com/laminas/laminas-development-mode/releases.atom",
                 "source": "https://github.com/laminas/laminas-development-mode"
             },
-            "time": "2019-12-31T16:40:06+00:00"
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2020-12-16T22:26:52+00:00"
         },
         {
             "name": "laminas/laminas-di",
