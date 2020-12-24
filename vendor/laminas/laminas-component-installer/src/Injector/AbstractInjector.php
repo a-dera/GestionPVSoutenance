@@ -199,7 +199,7 @@ abstract class AbstractInjector implements InjectorInterface
             $package
         );
 
-        $config = preg_replace($pattern, $replacement, $config);
+        $config = preg_replace($pattern, $replacement, $config, 1);
         file_put_contents($this->configFile, $config);
 
         return true;
@@ -238,7 +238,7 @@ abstract class AbstractInjector implements InjectorInterface
             $package
         );
 
-        $config = preg_replace($pattern, $replacement, $config);
+        $config = preg_replace($pattern, $replacement, $config, 1);
         file_put_contents($this->configFile, $config);
 
         return true;
@@ -293,7 +293,7 @@ abstract class AbstractInjector implements InjectorInterface
             $package
         );
 
-        $config = preg_replace($pattern, $replacement, $config);
+        $config = preg_replace($pattern, $replacement, $config, 1);
         file_put_contents($this->configFile, $config);
 
         return true;
@@ -394,8 +394,8 @@ abstract class AbstractInjector implements InjectorInterface
     /**
      * Is the code item registered in the configuration already?
      *
-     * @var string $package Package name
-     * @var string $config
+     * @param string $package Package name
+     * @param string $config
      * @return bool
      */
     protected function isRegisteredInConfig($package, $config)
