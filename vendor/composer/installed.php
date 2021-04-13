@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '70a6a06049a3f85aa8667d654bb216dc7c5b967e',
+    'reference' => 'f0b2bb4ee0da8d4287fcd066a2970fffc612461f',
     'name' => 'laminas/laminas-mvc-skeleton',
   ),
   'versions' => 
@@ -270,12 +270,12 @@
     ),
     'laminas/laminas-di' => 
     array (
-      'pretty_version' => '3.2.1',
-      'version' => '3.2.1.0',
+      'pretty_version' => '3.2.2',
+      'version' => '3.2.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'feee971d50ea327a0cac987f5de313a988203b9f',
+      'reference' => 'ed38ab3b066c0a1f1b087e0a664caadf1d4f8f04',
     ),
     'laminas/laminas-diactoros' => 
     array (
@@ -491,7 +491,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '70a6a06049a3f85aa8667d654bb216dc7c5b967e',
+      'reference' => 'f0b2bb4ee0da8d4287fcd066a2970fffc612461f',
     ),
     'laminas/laminas-paginator' => 
     array (

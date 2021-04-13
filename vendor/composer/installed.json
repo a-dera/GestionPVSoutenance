@@ -1807,17 +1807,17 @@
         },
         {
             "name": "laminas/laminas-di",
-            "version": "3.2.1",
-            "version_normalized": "3.2.1.0",
+            "version": "3.2.2",
+            "version_normalized": "3.2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-di.git",
-                "reference": "feee971d50ea327a0cac987f5de313a988203b9f"
+                "reference": "ed38ab3b066c0a1f1b087e0a664caadf1d4f8f04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-di/zipball/feee971d50ea327a0cac987f5de313a988203b9f",
-                "reference": "feee971d50ea327a0cac987f5de313a988203b9f",
+                "url": "https://api.github.com/repos/laminas/laminas-di/zipball/ed38ab3b066c0a1f1b087e0a664caadf1d4f8f04",
+                "reference": "ed38ab3b066c0a1f1b087e0a664caadf1d4f8f04",
                 "shasum": ""
             },
             "require": {
@@ -1846,7 +1846,7 @@
             "suggest": {
                 "laminas/laminas-servicemanager": "An IoC container without auto wiring capabilities"
             },
-            "time": "2020-12-24T12:46:22+00:00",
+            "time": "2021-04-13T19:22:31+00:00",
             "type": "library",
             "extra": {
                 "laminas": {
