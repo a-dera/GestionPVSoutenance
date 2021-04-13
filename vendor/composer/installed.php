@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '98e1c93d0dc8e90e6bc00128a930177541ce7376',
+    'reference' => 'adb14d03beb3daa7552bf67b3519fb12d64ea6da',
     'name' => 'laminas/laminas-mvc-skeleton',
   ),
   'versions' => 
@@ -279,12 +279,12 @@
     ),
     'laminas/laminas-diactoros' => 
     array (
-      'pretty_version' => '2.5.0',
-      'version' => '2.5.0.0',
+      'pretty_version' => '2.5.1',
+      'version' => '2.5.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '4ff7400c1c12e404144992ef43c8b733fd9ad516',
+      'reference' => '53df7b7cd66e0905e6133970a4b90392a7a08075',
     ),
     'laminas/laminas-dom' => 
     array (
@@ -491,7 +491,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '98e1c93d0dc8e90e6bc00128a930177541ce7376',
+      'reference' => 'adb14d03beb3daa7552bf67b3519fb12d64ea6da',
     ),
     'laminas/laminas-paginator' => 
     array (
@@ -504,12 +504,12 @@
     ),
     'laminas/laminas-psr7bridge' => 
     array (
-      'pretty_version' => '1.3.0',
-      'version' => '1.3.0.0',
+      'pretty_version' => '1.3.1',
+      'version' => '1.3.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6a46cf5b403be26ee87905247b87959e091c0058',
+      'reference' => 'b1158f0574164039f698a261c01c26119cc6dbd6',
     ),
     'laminas/laminas-router' => 
     array (
