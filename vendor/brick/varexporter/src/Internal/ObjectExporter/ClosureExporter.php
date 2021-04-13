@@ -54,7 +54,7 @@ class ClosureExporter extends ObjectExporter
         $closure = $this->getClosure($reflectionFunction, $ast, $file, $line, $path);
 
         $prettyPrinter = new ClosureExporter\PrettyPrinter();
-        $prettyPrinter->setVarExporterNestingLevel(count($path));
+        $prettyPrinter->setVarExporterNestingLevel(count($path) + $this->exporter->indentLevel);
 
         $code = $prettyPrinter->prettyPrintExpr($closure);
 
@@ -190,7 +190,6 @@ class ClosureExporter extends ObjectExporter
      *
      * @param ReflectionFunction       $reflectionFunction  Reflection of the closure.
      * @param Node\Expr\ArrowFunction  $arrowFunction       Parsed arrow function.
-     * @param string[]                 $path                The path to the closure in the array/object graph.
      *
      * @return Node\Expr\Closure
      */

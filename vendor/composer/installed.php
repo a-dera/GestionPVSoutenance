@@ -6,19 +6,19 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'f0b2bb4ee0da8d4287fcd066a2970fffc612461f',
+    'reference' => '98e1c93d0dc8e90e6bc00128a930177541ce7376',
     'name' => 'laminas/laminas-mvc-skeleton',
   ),
   'versions' => 
   array (
     'brick/varexporter' => 
     array (
-      'pretty_version' => '0.3.3',
-      'version' => '0.3.3.0',
+      'pretty_version' => '0.3.5',
+      'version' => '0.3.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '736378d357a189a692390bbc9e0eed835b079805',
+      'reference' => '05241f28dfcba2b51b11e2d750e296316ebbe518',
     ),
     'container-interop/container-interop' => 
     array (
@@ -225,12 +225,12 @@
     ),
     'laminas/laminas-config' => 
     array (
-      'pretty_version' => '3.4.0',
-      'version' => '3.4.0.0',
+      'pretty_version' => '3.5.0',
+      'version' => '3.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0bce6f5abab41dc673196741883b19018a2b5994',
+      'reference' => 'f91cd6fe79e82cbbcaa36485108a04e8ef1e679b',
     ),
     'laminas/laminas-console' => 
     array (
@@ -252,12 +252,12 @@
     ),
     'laminas/laminas-developer-tools' => 
     array (
-      'pretty_version' => '2.1.0',
-      'version' => '2.1.0.0',
+      'pretty_version' => '2.1.1',
+      'version' => '2.1.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e8c923c652748957fe959bcad52b4632806f8086',
+      'reference' => '8d9e152e0791fe577e1d0fb63c6a973558f36013',
     ),
     'laminas/laminas-development-mode' => 
     array (
@@ -306,12 +306,12 @@
     ),
     'laminas/laminas-eventmanager' => 
     array (
-      'pretty_version' => '3.3.0',
-      'version' => '3.3.0.0',
+      'pretty_version' => '3.3.1',
+      'version' => '3.3.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1940ccf30e058b2fd66f5a9d696f1b5e0027b082',
+      'reference' => '966c859b67867b179fde1eff0cd38df51472ce4a',
     ),
     'laminas/laminas-filter' => 
     array (
@@ -396,12 +396,12 @@
     ),
     'laminas/laminas-modulemanager' => 
     array (
-      'pretty_version' => '2.10.1',
-      'version' => '2.10.1.0',
+      'pretty_version' => '2.10.2',
+      'version' => '2.10.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '637aaaf2c85d13694b096e253e5884653f93bb92',
+      'reference' => '2068e0b300e87e139112016a6025be341ceaaf33',
     ),
     'laminas/laminas-mvc' => 
     array (
@@ -491,7 +491,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'f0b2bb4ee0da8d4287fcd066a2970fffc612461f',
+      'reference' => '98e1c93d0dc8e90e6bc00128a930177541ce7376',
     ),
     'laminas/laminas-paginator' => 
     array (
@@ -585,12 +585,12 @@
     ),
     'laminas/laminas-view' => 
     array (
-      'pretty_version' => '2.11.5',
-      'version' => '2.11.5.0',
+      'pretty_version' => '2.12.0',
+      'version' => '2.12.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '16611035d7b3a6ef2c636a9268c213146123b663',
+      'reference' => '3ef103da6887809f08ecf52f42c31a76c9bf08b1',
     ),
     'laminas/laminas-zendframework-bridge' => 
     array (
@@ -982,30 +982,30 @@
     ),
     'symfony/polyfill-mbstring' => 
     array (
-      'pretty_version' => 'v1.20.0',
-      'version' => '1.20.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '39d483bdf39be819deabf04ec872eb0b2410b531',
+      'reference' => '5232de97ee3b75b0360528dae24e73db49566ab1',
     ),
     'symfony/polyfill-php80' => 
     array (
-      'pretty_version' => 'v1.20.0',
-      'version' => '1.20.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e70aa8b064c5b72d3df2abd5ab1e90464ad009de',
+      'reference' => 'dc3063ba22c2a1fd2f45ed856374d79114998f91',
     ),
     'symfony/var-dumper' => 
     array (
-      'pretty_version' => 'v5.2.1',
-      'version' => '5.2.1.0',
+      'pretty_version' => 'v5.2.6',
+      'version' => '5.2.6.0',
       'aliases' => 
       array (
       ),
-      'reference' => '13e7e882eaa55863faa7c4ad7c60f12f1a8b5089',
+      'reference' => '89412a68ea2e675b4e44f260a5666729f77f668e',
     ),
     'theseer/tokenizer' => 
     array (

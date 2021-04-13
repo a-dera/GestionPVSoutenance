@@ -33,29 +33,52 @@ final class GenericExporter
     private $visitedObjects = [];
 
     /**
+     * @psalm-readonly
+     *
      * @var bool
      */
     public $addTypeHints;
 
     /**
+     * @psalm-readonly
+     *
      * @var bool
      */
     public $skipDynamicProperties;
 
     /**
+     * @psalm-readonly
+     *
      * @var bool
      */
     public $inlineNumericScalarArray;
 
     /**
+     * @psalm-readonly
+     *
      * @var bool
      */
     public $closureSnapshotUses;
 
     /**
-     * @param int $options
+     * @psalm-readonly
+     *
+     * @var bool
      */
-    public function __construct(int $options)
+    public $trailingCommaInArray;
+
+    /**
+     * @psalm-readonly
+     *
+     * @var int
+     */
+    public $indentLevel;
+
+    /**
+     * @param int $options
+     * @param int Indentation level
+     */
+    public function __construct(int $options, int $indentLevel = 0)
     {
         $this->objectExporters[] = new ObjectExporter\StdClassExporter($this);
 
@@ -81,6 +104,9 @@ final class GenericExporter
         $this->skipDynamicProperties    = (bool) ($options & VarExporter::SKIP_DYNAMIC_PROPERTIES);
         $this->inlineNumericScalarArray = (bool) ($options & VarExporter::INLINE_NUMERIC_SCALAR_ARRAY);
         $this->closureSnapshotUses      = (bool) ($options & VarExporter::CLOSURE_SNAPSHOT_USES);
+        $this->trailingCommaInArray     = (bool) ($options & VarExporter::TRAILING_COMMA_IN_ARRAY);
+
+        $this->indentLevel = $indentLevel;
     }
 
     /**
@@ -163,7 +189,7 @@ final class GenericExporter
                     $prepend = var_export($key, true) . ' => ';
                 }
 
-                if (! $isLast) {
+                if (! $isLast || $this->trailingCommaInArray) {
                     $append = ',';
                 }
 
