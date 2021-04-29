@@ -1,9 +1,8 @@
 # laminas-cache-storage-adapter-memcached
 
-[![Build Status](https://travis-ci.com/laminas/laminas-cache-storage-adapter-memcached.svg?branch=master)](https://travis-ci.com/laminas/laminas-cache-storage-adapter-memcached)
-[![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-cache-storage-adapter-memcached/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-cache-storage-adapter-memcached?branch=master)
+[![Build Status](https://github.com/{organization}/{repository}/workflows/continuous-integration.yml/badge.svg)](https://github.com/{organization}/{repository}/actions/workflows/continuous-integration.yml)
 
-This library provides …
+This library provides a `laminas-cache` compatible `StorageInterface` implementation for Memcached.
 
 ## Installation
 

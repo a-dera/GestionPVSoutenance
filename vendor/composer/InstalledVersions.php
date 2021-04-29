@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'adb14d03beb3daa7552bf67b3519fb12d64ea6da',
+    'reference' => '8841322b9ce13ff65ebe773689a5be32a05d8753',
     'name' => 'laminas/laminas-mvc-skeleton',
   ),
   'versions' => 
@@ -80,12 +80,12 @@ private static $installed = array (
     ),
     'laminas/laminas-cache' => 
     array (
-      'pretty_version' => '2.10.1',
-      'version' => '2.10.1.0',
+      'pretty_version' => '2.10.2',
+      'version' => '2.10.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c0c24cb12f6180c4025eaabe092f63309876c2a9',
+      'reference' => '23d1340f4c044681819a2b4f0379e460d43ce9fb',
     ),
     'laminas/laminas-cache-storage-adapter-apc' => 
     array (
@@ -107,12 +107,12 @@ private static $installed = array (
     ),
     'laminas/laminas-cache-storage-adapter-blackhole' => 
     array (
-      'pretty_version' => '1.1.0',
-      'version' => '1.1.0.0',
+      'pretty_version' => '1.1.1',
+      'version' => '1.1.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '78aab2ceac8464e27aa330d2b5bba314b44accee',
+      'reference' => '8d6c5741e46c4797e332d05b9eb53e743fe0c073',
     ),
     'laminas/laminas-cache-storage-adapter-dba' => 
     array (
@@ -134,12 +134,12 @@ private static $installed = array (
     ),
     'laminas/laminas-cache-storage-adapter-filesystem' => 
     array (
-      'pretty_version' => '1.1.0',
-      'version' => '1.1.0.0',
+      'pretty_version' => '1.1.1',
+      'version' => '1.1.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e803d9942b30396491efbe649a3886450d22385f',
+      'reference' => '76fc488c3fa0ad442e4e70f807305c940d1bdcbc',
     ),
     'laminas/laminas-cache-storage-adapter-memcache' => 
     array (
@@ -152,21 +152,21 @@ private static $installed = array (
     ),
     'laminas/laminas-cache-storage-adapter-memcached' => 
     array (
-      'pretty_version' => '1.0.1',
-      'version' => '1.0.1.0',
+      'pretty_version' => '1.1.0',
+      'version' => '1.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '29599106bb501eb96207b175c460c95487518db1',
+      'reference' => 'f5d35cc2ef6264c76021bcc798569182103baa91',
     ),
     'laminas/laminas-cache-storage-adapter-memory' => 
     array (
-      'pretty_version' => '1.0.1',
-      'version' => '1.0.1.0',
+      'pretty_version' => '1.1.0',
+      'version' => '1.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '58f4b45281552bb6673c900fadddad21e0ed05c8',
+      'reference' => '02c7a4a1118bbd47d1c0f0bfe1e8b140af79d2bd',
     ),
     'laminas/laminas-cache-storage-adapter-mongodb' => 
     array (
@@ -515,7 +515,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'adb14d03beb3daa7552bf67b3519fb12d64ea6da',
+      'reference' => '8841322b9ce13ff65ebe773689a5be32a05d8753',
     ),
     'laminas/laminas-paginator' => 
     array (

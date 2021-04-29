@@ -160,7 +160,7 @@ class Memcached extends AbstractAdapter implements
         $memc  = $this->getMemcachedResource();
         $stats = $memc->getStats();
         if ($stats === false) {
-            throw new Exception\RuntimeException($memc->getResultMessage());
+            throw new Exception\RuntimeException($memc->getResultMessage(), $memc->getResultCode());
         }
 
         $mem = array_pop($stats);
@@ -179,7 +179,7 @@ class Memcached extends AbstractAdapter implements
         $memc  = $this->getMemcachedResource();
         $stats = $memc->getStats();
         if ($stats === false) {
-            throw new Exception\RuntimeException($memc->getResultMessage());
+            throw new Exception\RuntimeException($memc->getResultMessage(), $memc->getResultCode());
         }
 
         $mem = array_pop($stats);
@@ -647,7 +647,10 @@ class Memcached extends AbstractAdapter implements
                 );
 
             default:
-                return new Exception\RuntimeException($this->getMemcachedResource()->getResultMessage());
+                return new Exception\RuntimeException(
+                    $this->getMemcachedResource()->getResultMessage(),
+                    $code
+                );
         }
     }
 }
