@@ -2,6 +2,88 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 4.1.0 - 2020-12-16
+
+
+-----
+
+### Release Notes for [4.1.0](https://github.com/laminas/laminas-hydrator/milestone/10)
+
+Feature release (minor)
+
+### 4.1.0
+
+- Total issues resolved: **1**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+#### Documentation Needed,Enhancement
+
+ - [43: Add NullableStrategy](https://github.com/laminas/laminas-hydrator/pull/43) thanks to @eugene-borovov
+
+#### Feature Request
+
+ - [42: HydratorStrategy extract empty value](https://github.com/laminas/laminas-hydrator/issues/42) thanks to @eugene-borovov
+
+## 4.0.2 - 2020-12-16
+
+### Release Notes for [4.0.2](https://github.com/laminas/laminas-hydrator/milestone/12)
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+- [36: Fix example in quick-start.md](https://github.com/laminas/laminas-hydrator/pull/36) thanks to @vjik
+
+## 4.0.1 - 2020-11-11
+
+### Release Notes for [4.0.1](https://github.com/laminas/laminas-hydrator/milestone/9)
+
+- Total issues resolved: **1**
+- Total pull requests resolved: **1**
+- Total contributors: **2**
+
+#### Documentation
+
+- [39: Provide v4 documentation](https://github.com/laminas/laminas-hydrator/pull/39) thanks to @weierophinney and @rieschl
+
+## 4.0.0 - 2020-10-06
+
+### Changed
+
+- [#30](https://github.com/laminas/laminas-hydrator/pull/30) modifies all `Laminas\Hydrator\Filter\FilterInterface` implementations shipped with the package, marking them as `final`. If you previously extended them, you will need to copy and paste the implementations, or open an issue requesting removal of the `final` keyword, detailing your use case.
+
+- [#30](https://github.com/laminas/laminas-hydrator/pull/30) changes the signature of `Laminas\Hydrator\Filter\FilterInterface::filter()` to now accept a second, optional argument, `?object $instance = null`.  This argument's primary use case is with anonymous objects, to facilitate reflection; the `ClassMethodsHydrator`, for instance, was updated to pass the `$instance` value only when an anonymous object is detected.  All filter implementations have been updated to the new signature.
+
+### Fixed
+
+- [#30](https://github.com/laminas/laminas-hydrator/pull/30) fixes the filter system to allow usage with anonymous objects.
+
+
+-----
+
+### Release Notes for [4.0.0](https://github.com/laminas/laminas-hydrator/milestone/2)
+
+next backward compatibility break release (major)
+
+### 4.0.0
+
+- Total issues resolved: **2**
+- Total pull requests resolved: **2**
+- Total contributors: **3**
+
+#### Enhancement
+
+ - [35: Improve code base per Psalm suggestions](https://github.com/laminas/laminas-hydrator/pull/35) thanks to @weierophinney
+
+#### BC Break,Bug,Enhancement
+
+ - [30: Allow anonymous object usage with hydrators](https://github.com/laminas/laminas-hydrator/pull/30) thanks to @weierophinney and @luiz-brandao-jr
+
+#### Enhancement,hacktoberfest-accepted
+
+ - [29: PHP 8.0 support](https://github.com/laminas/laminas-hydrator/issues/29) thanks to @boesing
+
 ## 3.2.0 - 2020-10-06
 
 ### Added
@@ -16,14 +98,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - [#32](https://github.com/laminas/laminas-hydrator/pull/32) removes support for PHP versions prior to 7.3.
 
-
 -----
 
 ### Release Notes for [3.2.0](https://github.com/laminas/laminas-hydrator/milestone/4)
-
-
-
-### 3.2.0
 
 - Total issues resolved: **1**
 - Total pull requests resolved: **2**

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '8841322b9ce13ff65ebe773689a5be32a05d8753',
+    'reference' => 'a0c66db2f506c783903541e52ab68409c8b76f06',
     'name' => 'laminas/laminas-mvc-skeleton',
   ),
   'versions' => 
@@ -207,12 +207,12 @@
     ),
     'laminas/laminas-code' => 
     array (
-      'pretty_version' => '3.4.1',
-      'version' => '3.4.1.0',
+      'pretty_version' => '3.5.1',
+      'version' => '3.5.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1cb8f203389ab1482bf89c0e70a04849bacd7766',
+      'reference' => 'b549b70c0bb6e935d497f84f750c82653326ac77',
     ),
     'laminas/laminas-component-installer' => 
     array (
@@ -315,21 +315,21 @@
     ),
     'laminas/laminas-filter' => 
     array (
-      'pretty_version' => '2.9.4',
-      'version' => '2.9.4.0',
+      'pretty_version' => '2.11.0',
+      'version' => '2.11.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3c4476e772a062cef7531c6793377ae585d89c82',
+      'reference' => 'dd295a15f5c13d0c13d69ca0107190b1f2083d91',
     ),
     'laminas/laminas-form' => 
     array (
-      'pretty_version' => '2.15.0',
-      'version' => '2.15.0.0',
+      'pretty_version' => '2.16.3',
+      'version' => '2.16.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '359cd372c565e18a17f32ccfeacdf21bba091ce2',
+      'reference' => '76fe85b3f126183fe965d60e32e2bf6c7c108d61',
     ),
     'laminas/laminas-http' => 
     array (
@@ -342,30 +342,30 @@
     ),
     'laminas/laminas-hydrator' => 
     array (
-      'pretty_version' => '3.2.0',
-      'version' => '3.2.0.0',
+      'pretty_version' => '4.1.0',
+      'version' => '4.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f0336699910478cc45c7e34ca0fc83bf118e48bc',
+      'reference' => 'fc201f29280a8308579e7fb4c1fbc2fb3dfdbd8f',
     ),
     'laminas/laminas-i18n' => 
     array (
-      'pretty_version' => '2.11.0',
-      'version' => '2.11.0.0',
+      'pretty_version' => '2.11.1',
+      'version' => '2.11.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '85678f444b6dcb48e8a04591779e11c24e5bb901',
+      'reference' => '5e85a8facc5534e856cc7f5b4326533eede84b8a',
     ),
     'laminas/laminas-inputfilter' => 
     array (
-      'pretty_version' => '2.10.1',
-      'version' => '2.10.1.0',
+      'pretty_version' => '2.12.0',
+      'version' => '2.12.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b29ce8f512c966468eee37ea4873ae5fb545d00a',
+      'reference' => 'b6ab28b425e626b12488fec243e02d36d8dffeff',
     ),
     'laminas/laminas-json' => 
     array (
@@ -423,12 +423,12 @@
     ),
     'laminas/laminas-mvc-form' => 
     array (
-      'pretty_version' => '1.0.0',
-      'version' => '1.0.0.0',
+      'pretty_version' => '1.1.0',
+      'version' => '1.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '42254dd6d6d221f0825e79b1811bc734027908ed',
+      'reference' => 'c027f5becb817736096d0967c5e42cd7f746d5e4',
     ),
     'laminas/laminas-mvc-i18n' => 
     array (
@@ -491,7 +491,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '8841322b9ce13ff65ebe773689a5be32a05d8753',
+      'reference' => 'a0c66db2f506c783903541e52ab68409c8b76f06',
     ),
     'laminas/laminas-paginator' => 
     array (
@@ -1052,7 +1052,7 @@
     array (
       'replaced' => 
       array (
-        0 => '3.4.1',
+        0 => '^3.4.1',
       ),
     ),
     'zendframework/zend-component-installer' => 
@@ -1164,7 +1164,7 @@
     array (
       'replaced' => 
       array (
-        0 => '2.10.1',
+        0 => '^2.10.1',
       ),
     ),
     'zendframework/zend-json' => 
@@ -1213,7 +1213,7 @@
     array (
       'replaced' => 
       array (
-        0 => '1.0.0',
+        0 => '^1.0.0',
       ),
     ),
     'zendframework/zend-mvc-i18n' => 
