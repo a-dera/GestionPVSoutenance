@@ -8,7 +8,11 @@
 
 namespace Laminas\Cache\Storage\Adapter;
 
+use ArrayAccess;
 use Laminas\Cache\Exception;
+
+use function sprintf;
+use function strlen;
 
 /**
  * These are options specific to the Memcache adapter
@@ -27,6 +31,7 @@ class MemcacheOptions extends AdapterOptions
 
     /**
      * The namespace separator
+     *
      * @var string
      */
     protected $namespaceSeparator = ':';
@@ -55,10 +60,8 @@ class MemcacheOptions extends AdapterOptions
     /**
      * Set namespace.
      *
-     * It can't be longer than 128 characters.
-     *
-     * @see AdapterOptions::setNamespace()
-     * @see MemcacheOptions::setPrefixKey()
+     * @param string $namespace
+     * @return MemcacheOptions
      */
     public function setNamespace($namespace)
     {
@@ -103,10 +106,9 @@ class MemcacheOptions extends AdapterOptions
     /**
      * Set the memcache resource manager to use
      *
-     * @param null|MemcacheResourceManager $resourceManager
      * @return MemcacheOptions
      */
-    public function setResourceManager(MemcacheResourceManager $resourceManager = null)
+    public function setResourceManager(?MemcacheResourceManager $resourceManager = null)
     {
         if ($this->resourceManager !== $resourceManager) {
             $this->triggerOptionEvent('resource_manager', $resourceManager);
@@ -206,7 +208,7 @@ class MemcacheOptions extends AdapterOptions
     /**
      * Set compress threshold
      *
-     * @param  int|string|array|\ArrayAccess|null $threshold
+     * @param int|string|array|ArrayAccess|null $threshold
      * @return MemcacheOptions
      */
     public function setAutoCompressThreshold($threshold)
@@ -241,6 +243,7 @@ class MemcacheOptions extends AdapterOptions
      * Get compress min savings
      *
      * @throws Exception\RuntimeException
+     * @return float|null
      */
     public function getAutoCompressMinSavings()
     {
