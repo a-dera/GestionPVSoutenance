@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 1.0.1 - 2020-10-12
+## 1.1.0 - 2021-05-03
 
 ### Removed
 
@@ -11,19 +11,25 @@ All notable changes to this project will be documented in this file, in reverse 
 
 -----
 
-### Release Notes for [1.0.1](https://github.com/laminas/laminas-cache-storage-adapter-apcu/milestone/2)
+### Release Notes for [1.1.0](https://github.com/laminas/laminas-cache-storage-adapter-apcu/milestone/3)
 
-1.0.x bugfix release (patch)
+### Added
+- Added support for PHP 8.0
 
-### 1.0.1
+### Removed
+- Removed support for PHP prior 7.3
+
+### 1.1.0
 
 - Total issues resolved: **0**
-- Total pull requests resolved: **1**
+- Total pull requests resolved: **2**
 - Total contributors: **1**
 
-#### Bug
+#### Enhancement
 
- - [3: qa: remove cache dependency](https://github.com/laminas/laminas-cache-storage-adapter-apcu/pull/3) thanks to @boesing
+ - [7: Add PHP 8.0 support](https://github.com/laminas/laminas-cache-storage-adapter-apcu/pull/7) thanks to @Slamdunk
+
+ - [5: Adopt Laminas CI workflow](https://github.com/laminas/laminas-cache-storage-adapter-apcu/pull/5) thanks to @Slamdunk
 
 ## 1.0.0 - 2020-10-05
 

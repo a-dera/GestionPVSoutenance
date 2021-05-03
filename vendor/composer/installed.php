@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '7f412fcfc9973fc8d41c7f9b0a46ef6eb60f6889',
+    'reference' => 'abd4e19e03bd61a3f7f34f851b3c401cebd57ff7',
     'name' => 'laminas/laminas-mvc-skeleton',
   ),
   'versions' => 
@@ -56,12 +56,12 @@
     ),
     'laminas/laminas-cache' => 
     array (
-      'pretty_version' => '2.11.0',
-      'version' => '2.11.0.0',
+      'pretty_version' => '2.11.1',
+      'version' => '2.11.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd789161db92a25b065f35f8c915b37d94b496270',
+      'reference' => 'f888588c3a40916e505658c9e8b8922166b70ec6',
     ),
     'laminas/laminas-cache-storage-adapter-apc' => 
     array (
@@ -74,12 +74,12 @@
     ),
     'laminas/laminas-cache-storage-adapter-apcu' => 
     array (
-      'pretty_version' => '1.0.1',
-      'version' => '1.0.1.0',
+      'pretty_version' => '1.1.0',
+      'version' => '1.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1fdd7585042c1a577f6e630535df1e86e23cf5dc',
+      'reference' => 'e182aab739d6b03992a9915cc3c7019391a94548',
     ),
     'laminas/laminas-cache-storage-adapter-blackhole' => 
     array (
@@ -491,7 +491,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '7f412fcfc9973fc8d41c7f9b0a46ef6eb60f6889',
+      'reference' => 'abd4e19e03bd61a3f7f34f851b3c401cebd57ff7',
     ),
     'laminas/laminas-paginator' => 
     array (
