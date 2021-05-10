@@ -1,15 +1,10 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
- * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ComponentInstaller\Injector;
 
 use Laminas\ComponentInstaller\ConfigDiscovery\ConfigAggregator as ConfigAggregatorDiscovery;
 
+use function assert;
 use function preg_quote;
 use function sprintf;
 
@@ -17,20 +12,17 @@ class ConfigAggregatorInjector extends AbstractInjector
 {
     use ConditionalDiscoveryTrait;
 
-    const DEFAULT_CONFIG_FILE = 'config/config.php';
+    public const DEFAULT_CONFIG_FILE = 'config/config.php';
 
     /**
-     * {@inheritDoc}
+     * @var array
+     * @psalm-var list<InjectorInterface::TYPE_*>
      */
     protected $allowedTypes = [
         self::TYPE_CONFIG_PROVIDER,
     ];
 
-    /**
-     * Configuration file to update.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $configFile = self::DEFAULT_CONFIG_FILE;
 
     /**
@@ -38,6 +30,7 @@ class ConfigAggregatorInjector extends AbstractInjector
      * configuration.
      *
      * @var string
+     * @psalm-var non-empty-string
      */
     protected $discoveryClass = ConfigAggregatorDiscovery::class;
 
@@ -46,14 +39,13 @@ class ConfigAggregatorInjector extends AbstractInjector
      *
      * Pattern is set in constructor due to PCRE quoting issues.
      *
-     * @var string[]
+     * @var array
+     * @psalm-var array<
+     *     InjectorInterface::TYPE_*,
+     *     array{pattern: non-empty-string, replacement: string}
+     * >
      */
-    protected $injectionPatterns = [
-        self::TYPE_CONFIG_PROVIDER => [
-            'pattern'     => '',
-            'replacement' => "\$1\n\$2%s::class,\n\$2",
-        ],
-    ];
+    protected $injectionPatterns = [];
 
     /**
      * Pattern to use to determine if the code item is registered.
@@ -61,13 +53,13 @@ class ConfigAggregatorInjector extends AbstractInjector
      * Set in constructor due to PCRE quoting issues.
      *
      * @var string
+     * @psalm-var non-empty-string
      */
-    protected $isRegisteredPattern = '';
+    protected $isRegisteredPattern = 'overridden-by-constructor';
 
     /**
-     * Patterns and replacements to use when removing a code item.
-     *
-     * @var string[]
+     * @var array
+     * @psalm-var array{pattern: non-empty-string, replacement: string}
      */
     protected $removalPatterns = [
         'pattern'     => '/^\s+%s::class,\s*$/m',
@@ -82,7 +74,7 @@ class ConfigAggregatorInjector extends AbstractInjector
      */
     public function __construct($projectRoot = '')
     {
-        $ns = preg_quote('\\');
+        $ns                        = preg_quote('\\');
         $this->isRegisteredPattern = '/new (?:'
             . $ns
             . '?'
@@ -91,11 +83,16 @@ class ConfigAggregatorInjector extends AbstractInjector
             . $ns
             . '?%s::class/s';
 
-        $this->injectionPatterns[self::TYPE_CONFIG_PROVIDER]['pattern'] = sprintf(
+        $pattern = sprintf(
             "/(new (?:%s?%s)?ConfigAggregator\(\s*(?:array\(|\[)\s*)(?:\r|\n|\r\n)(\s*)/",
             preg_quote('\\'),
             preg_quote('Laminas\ConfigAggregator\\')
         );
+        assert($pattern !== '');
+        $this->injectionPatterns[self::TYPE_CONFIG_PROVIDER] = [
+            'pattern'     => $pattern,
+            'replacement' => "\$1\n\$2%s::class,\n\$2",
+        ];
 
         parent::__construct($projectRoot);
     }

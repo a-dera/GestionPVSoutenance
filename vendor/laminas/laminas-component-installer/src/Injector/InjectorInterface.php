@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
- * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ComponentInstaller\Injector;
 
 use Laminas\ComponentInstaller\Exception;
@@ -15,16 +9,17 @@ use Laminas\ComponentInstaller\Exception;
  */
 interface InjectorInterface
 {
-    const TYPE_CONFIG_PROVIDER = 0;
-    const TYPE_COMPONENT = 1;
-    const TYPE_MODULE = 2;
-    const TYPE_DEPENDENCY = 3;
-    const TYPE_BEFORE_APPLICATION = 4;
+    public const TYPE_CONFIG_PROVIDER    = 0;
+    public const TYPE_COMPONENT          = 1;
+    public const TYPE_MODULE             = 2;
+    public const TYPE_DEPENDENCY         = 3;
+    public const TYPE_BEFORE_APPLICATION = 4;
 
     /**
      * Whether or not the injector can handle the given type.
      *
      * @param int $type One of the TYPE_* constants.
+     * @psalm-param InjectorInterface::TYPE_* $type
      * @return bool
      */
     public function registersType($type);
@@ -66,7 +61,8 @@ interface InjectorInterface
     /**
      * Set modules of the application.
      *
-     * @param array $modules
+     * @param array<int,string> $modules
+     * @psalm-param list<non-empty-string> $modules
      * @return self
      */
     public function setApplicationModules(array $modules);
@@ -74,7 +70,8 @@ interface InjectorInterface
     /**
      * Set dependencies for the module.
      *
-     * @param array $modules
+     * @param array<int,string> $modules
+     * @psalm-param list<non-empty-string> $modules
      * @return self
      */
     public function setModuleDependencies(array $modules);

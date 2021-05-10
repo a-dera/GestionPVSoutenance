@@ -1,18 +1,15 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
- * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ComponentInstaller;
 
 use ArrayObject;
 use Composer\Composer;
 use Composer\DependencyResolver\Operation\InstallOperation;
+use Composer\DependencyResolver\Operation\UninstallOperation;
+use Composer\DependencyResolver\Operation\UpdateOperation;
 use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\Installer\PackageEvent;
+use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
 use Composer\Package\PackageInterface;
 use Composer\Plugin\PluginInterface;
@@ -22,11 +19,16 @@ use Laminas\ComponentInstaller\Injector\ConfigInjectorChain;
 use Laminas\ComponentInstaller\Injector\InjectorInterface;
 use Laminas\ComponentInstaller\PackageProvider\PackageProviderDetectionFactory;
 use Laminas\ComponentInstaller\PackageProvider\PackageProviderDetectionInterface;
+
+use function array_diff_assoc;
 use function array_filter;
 use function array_flip;
 use function array_keys;
 use function array_map;
+use function array_merge;
 use function array_unshift;
+use function array_values;
+use function assert;
 use function explode;
 use function file_exists;
 use function file_get_contents;
@@ -89,18 +91,14 @@ class ComponentInstaller implements
     /**
      * Cached injectors to re-use for packages installed later in the current process.
      *
-     * @var Injector\InjectorInterface[]
+     * @var InjectorInterface[]
      */
     private $cachedInjectors = [];
 
-    /**
-     * @var Composer
-     */
+    /** @var Composer */
     private $composer;
 
-    /**
-     * @var IOInterface
-     */
+    /** @var IOInterface */
     private $io;
 
     /**
@@ -109,9 +107,9 @@ class ComponentInstaller implements
      * @var string[]
      */
     private $packageTypes = [
-        Injector\InjectorInterface::TYPE_CONFIG_PROVIDER => 'config-provider',
-        Injector\InjectorInterface::TYPE_COMPONENT => 'component',
-        Injector\InjectorInterface::TYPE_MODULE => 'module',
+        InjectorInterface::TYPE_CONFIG_PROVIDER => 'config-provider',
+        InjectorInterface::TYPE_COMPONENT       => 'component',
+        InjectorInterface::TYPE_MODULE          => 'module',
     ];
 
     /**
@@ -121,10 +119,11 @@ class ComponentInstaller implements
      */
     private $projectRoot;
 
-    /**
-     * @var PackageProviderDetectionFactory
-     */
+    /** @var Closure():PackageProviderDetectionFactory */
     private $packageProviderFactory;
+
+    /** @var Collection|null */
+    private $discovered;
 
     /**
      * Constructor
@@ -146,18 +145,21 @@ class ComponentInstaller implements
      * Sets internal pointers to Composer and IOInterface instances, and resets
      * cached injector map.
      *
-     * @param Composer    $composer
-     * @param IOInterface $io
-     *
      * @return void
      */
     public function activate(Composer $composer, IOInterface $io)
     {
-        $this->composer = $composer;
-        $this->io = $io;
-        $this->cachedInjectors = [];
-        $this->packageProviderFactory = function () {
-            return PackageProviderDetectionFactory::create($this->composer);
+        $this->composer               = $composer;
+        $this->io                     = $io;
+        $this->cachedInjectors        = [];
+        $this->packageProviderFactory = function (): PackageProviderDetectionFactory {
+            static $factory;
+            if ($factory instanceof PackageProviderDetectionFactory) {
+                return $factory;
+            }
+
+            $factory = PackageProviderDetectionFactory::create($this->composer);
+            return $factory;
         };
     }
 
@@ -169,8 +171,9 @@ class ComponentInstaller implements
     public static function getSubscribedEvents()
     {
         return [
-            'post-package-install' => 'onPostPackageInstall',
-            'post-package-uninstall' => 'onPostPackageUninstall',
+            PackageEvents::POST_PACKAGE_INSTALL   => 'onPostPackageInstall',
+            PackageEvents::POST_PACKAGE_UPDATE    => 'onPostPackageUpdate',
+            PackageEvents::POST_PACKAGE_UNINSTALL => 'onPostPackageUninstall',
         ];
     }
 
@@ -190,8 +193,6 @@ class ComponentInstaller implements
      * using the value(s) discovered in extra.laminas.component and/or extra.laminas.module,
      * writing their values into the `modules` list.
      *
-     * @param PackageEvent $event
-     *
      * @return void
      */
     public function onPostPackageInstall(PackageEvent $event)
@@ -204,59 +205,60 @@ class ComponentInstaller implements
         $operation = $event->getOperation();
         assert($operation instanceof InstallOperation);
         $package = $operation->getPackage();
-        $name = $package->getName();
-        $extra = $this->getExtraMetadata($package->getExtra());
+        $name    = $package->getName();
+
+        /** @var array<string,mixed> $packageExtra */
+        $packageExtra = $package->getExtra();
+        $extra        = $this->getExtraMetadata($packageExtra);
 
         if (empty($extra)) {
             // Package does not define anything of interest; do nothing.
             return;
         }
 
-        $packageTypes = $this->discoverPackageTypes($extra);
-        $options = (new ConfigDiscovery())
-            ->getAvailableConfigOptions($packageTypes, $this->projectRoot);
+        $this->addPackageToConfig($name, $extra, $event, $package);
+    }
 
-        if ($options->isEmpty()) {
-            // No configuration options found; do nothing.
+    public function onPostPackageUpdate(PackageEvent $event): void
+    {
+        if (! $event->isDevMode()) {
+            // Do nothing in production mode.
             return;
         }
 
-        $this->packageProviderFactory = is_callable($this->packageProviderFactory)
-            ? ($this->packageProviderFactory)()
-            : $this->packageProviderFactory;
+        $operation = $event->getOperation();
+        assert($operation instanceof UpdateOperation);
 
-        $packageProviderDetection = $this->packageProviderFactory->detect($event, $name);
-        $requireDev = $this->isADevDependency($packageProviderDetection, $package);
-        $dependencies = $this->loadModuleClassesDependencies($package);
-        $applicationModules = $this->findApplicationModules();
+        $previousVersion = $operation->getInitialPackage();
+        $newVersion      = $operation->getTargetPackage();
+        /** @var array<string,mixed> $previousPackageExtra */
+        $previousPackageExtra = $previousVersion->getExtra();
+        $previousExtra        = $this->getExtraMetadata($previousPackageExtra);
+        /** @var array<string,mixed> $newPackageExtra */
+        $newPackageExtra = $newVersion->getExtra();
+        $newExtra        = $this->getExtraMetadata($newPackageExtra);
 
-        $this->marshalInstallableModules($extra, $options)
-            // Create injectors
-            ->reduce(function ($injectors, $module) use ($options, $packageTypes, $name, $requireDev) {
-                // Get extra from root package
-                $rootExtra = $this->getExtraMetadata($this->composer->getPackage()->getExtra());
-                $whitelist = $rootExtra['component-whitelist'] ?? [];
-                $packageType = $packageTypes[$module];
-                $injectors[$module] = $this->promptForConfigOption(
-                    $module,
-                    $options,
-                    $packageType,
-                    $name,
-                    $whitelist,
-                    $requireDev
-                );
+        if ($previousExtra === $newExtra) {
+            return;
+        }
 
-                return $injectors;
-            }, new Collection([]))
-            // Inject modules into configuration
-            ->each(function ($injector, $module) use ($name, $packageTypes, $applicationModules, $dependencies) {
-                if (isset($dependencies[$module])) {
-                    $injector->setModuleDependencies($dependencies[$module]);
-                }
+        // Looks like the newer version of the package does not contain component installer informations anymore
+        if (empty($newExtra)) {
+            $this->removePackageFromConfig($previousVersion->getName(), $previousExtra);
+            return;
+        }
 
-                $injector->setApplicationModules($applicationModules);
-                $this->injectModuleIntoConfig($name, $module, $injector, $packageTypes[$module]);
-            });
+        $removed  = array_diff_assoc($previousExtra, $newExtra);
+        $appended = array_diff_assoc($newExtra, $previousExtra);
+
+        if ($appended) {
+            // Newer version of the package contains component installer informations
+            $this->addPackageToConfig($newVersion->getName(), $appended, $event, $newVersion);
+        }
+
+        if ($removed) {
+            $this->removePackageFromConfig($newVersion->getName(), $removed);
+        }
     }
 
     /**
@@ -265,20 +267,20 @@ class ComponentInstaller implements
      *
      * These dependencies are used later
      *
-     * @param PackageInterface $package
-     *
-     * @return array
      * @see \Laminas\ComponentInstaller\Injector\AbstractInjector::injectAfterDependencies
      *      to add component in a correct order on the module list - after dependencies.
      *
      * It works with PSR-0, PSR-4, 'classmap' and 'files' composer autoloading.
      *
+     * @return array
+     * @psalm-return array<non-empty-string,list<non-empty-string>>
      */
     private function loadModuleClassesDependencies(PackageInterface $package)
     {
+        /** @psalm-var ArrayObject<non-empty-string,list<string>> $dependencies */
         $dependencies = new ArrayObject([]);
-        $installer = $this->composer->getInstallationManager();
-        $packagePath = $installer->getInstallPath($package);
+        $installer    = $this->composer->getInstallationManager();
+        $packagePath  = $installer->getInstallPath($package);
 
         $this->mapAutoloaders($package->getAutoload(), $dependencies, $packagePath);
 
@@ -289,6 +291,7 @@ class ComponentInstaller implements
      * Find all modules of the application.
      *
      * @return array
+     * @psalm-return list<non-empty-string>
      */
     private function findApplicationModules()
     {
@@ -305,7 +308,12 @@ class ComponentInstaller implements
                     continue;
                 }
 
-                $modules[] = $file->getBasename();
+                $module = $file->getBaseName();
+                if (empty($module)) {
+                    continue;
+                }
+
+                $modules[] = $module;
             }
         }
 
@@ -328,8 +336,6 @@ class ComponentInstaller implements
      * using the value(s) discovered in extra.laminas.component and/or extra.laminas.module,
      * removing their values from the `modules` list.
      *
-     * @param PackageEvent $event
-     *
      * @return void
      */
     public function onPostPackageUninstall(PackageEvent $event)
@@ -339,63 +345,64 @@ class ComponentInstaller implements
             return;
         }
 
-        $options = (new ConfigDiscovery())
-            ->getAvailableConfigOptions(
-                new Collection(array_keys($this->packageTypes)),
-                $this->projectRoot
-            );
+        $operation = $event->getOperation();
+        assert($operation instanceof UninstallOperation);
+        $package = $operation->getPackage();
 
-        if ($options->isEmpty()) {
-            // No configuration options found; do nothing.
-            return;
-        }
-
-        $package = $event->getOperation()->getPackage();
         $name = $package->getName();
-        $extra = $this->getExtraMetadata($package->getExtra());
-        $this->removePackageFromConfig($name, $extra, $options);
+        /** @var array<string,mixed> $packageExtra */
+        $packageExtra = $package->getExtra();
+        $extra        = $this->getExtraMetadata($packageExtra);
+        $this->removePackageFromConfig($name, $extra);
     }
 
     /**
      * Retrieve the metadata from the "extra" section
      *
-     * @param array $extra
-     *
-     * @return array
+     * @param array<string,mixed> $extra
+     * @return array<string,mixed>
      */
-    private function getExtraMetadata(array $extra)
+    private function getExtraMetadata(array $extra): array
     {
         if (isset($extra['laminas']) && is_array($extra['laminas'])) {
-            return $extra['laminas'];
+            /** @var array<string,mixed> $laminasSpecificConfiguration */
+            $laminasSpecificConfiguration = $extra['laminas'];
+            return $laminasSpecificConfiguration;
         }
 
-        // supports legacy "extra.zf" configuration
-        return isset($extra['zf']) && is_array($extra['zf'])
+        /**
+         * supports legacy "extra.zf" configuration
+         *
+         * @var array<string,mixed> $deprecatedConfiguration
+         */
+        $deprecatedConfiguration = isset($extra['zf']) && is_array($extra['zf'])
             ? $extra['zf']
             : [];
+
+        return $deprecatedConfiguration;
     }
 
     /**
      * Discover what package types are relevant based on what the package
      * exposes in the extra configuration.
      *
-     * @param string[] $extra
-     *
+     * @param array<string,mixed> $extra
      * @return Collection Collection of Injector\InjectorInterface::TYPE_* constants.
      */
-    private function discoverPackageTypes(array $extra)
+    private function discoverPackageTypes(array $extra): Collection
     {
         $packageTypes = array_flip($this->packageTypes);
-        $knownTypes = array_keys($packageTypes);
+        $knownTypes   = array_keys($packageTypes);
 
         return Collection::create($extra)
             ->filter(function ($packages, $type) use ($knownTypes) {
                 return in_array($type, $knownTypes, true);
             })
-            ->reduce(function ($discoveredTypes, $packages, $type) use ($packageTypes) {
+            ->reduce(function (Collection $discoveredTypes, $packages, string $type) use ($packageTypes): Collection {
                 $packages = is_array($packages) ? $packages : [$packages];
 
                 foreach ($packages as $package) {
+                    assert(is_string($package));
                     $discoveredTypes[$package] = $packageTypes[$type];
                 }
 
@@ -407,7 +414,6 @@ class ComponentInstaller implements
      * Marshal a collection of defined package types.
      *
      * @param array $extra extra.laminas value
-     *
      * @return Collection
      */
     private function marshalPackageTypes(array $extra)
@@ -423,9 +429,7 @@ class ComponentInstaller implements
      * Marshal a collection of package modules.
      *
      * @param array      $extra   extra.laminas value
-     * @param Collection $packageTypes
      * @param Collection $options ConfigOption instances
-     *
      * @return Collection
      */
     private function marshalPackageModules(array $extra, Collection $packageTypes, Collection $options)
@@ -454,8 +458,6 @@ class ComponentInstaller implements
      * Prepare a list of modules to install/register with configuration.
      *
      * @param string[]   $extra
-     * @param Collection $options
-     *
      * @return Collection List of packages to install
      */
     private function marshalInstallableModules(array $extra, Collection $options)
@@ -472,13 +474,8 @@ class ComponentInstaller implements
     /**
      * Prompt for the user to select a configuration location to update.
      *
-     * @param string     $name
-     * @param Collection $options
-     * @param int        $packageType
-     * @param string     $packageName
-     * @param array      $whitelist
-     *
-     * @return Injector\InjectorInterface
+     * @param array $whitelist
+     * @return InjectorInterface
      */
     private function promptForConfigOption(
         string $name,
@@ -503,7 +500,7 @@ class ComponentInstaller implements
 
         // Default to first discovered option; index 0 is always "Do not inject"
         $default = $options->count() > 1 ? 1 : 0;
-        $ask = $options->reduce(function ($ask, $option, $index) {
+        $ask     = $options->reduce(function ($ask, $option, $index) {
             $ask[] = sprintf(
                 "  [<comment>%d</comment>] %s\n",
                 $index,
@@ -536,13 +533,10 @@ class ComponentInstaller implements
     /**
      * Prompt the user to determine if the selection should be remembered for later packages.
      *
-     * @param Injector\InjectorInterface $injector
      * @param int                        $packageType
-     * return void
-     *
      * @todo Will need to store selection in filesystem and remove when all packages are complete
      */
-    private function promptToRememberOption(Injector\InjectorInterface $injector, $packageType)
+    private function promptToRememberOption(InjectorInterface $injector, $packageType): void
     {
         $ask = ["\n  <question>Remember this option for other packages of the same type? (Y/n)</question>"];
 
@@ -567,12 +561,11 @@ class ComponentInstaller implements
      *
      * @param string                     $package  Package name
      * @param string                     $module   Module to install in configuration
-     * @param Injector\InjectorInterface $injector Injector to use.
+     * @param InjectorInterface $injector Injector to use.
      * @param int                        $packageType
-     *
      * @return void
      */
-    private function injectModuleIntoConfig($package, $module, Injector\InjectorInterface $injector, $packageType)
+    private function injectModuleIntoConfig($package, $module, InjectorInterface $injector, $packageType)
     {
         $this->io->write(sprintf('<info>    Installing %s from package %s</info>', $module, $package));
 
@@ -593,13 +586,17 @@ class ComponentInstaller implements
      *
      * @param string     $package       Package name
      * @param array      $metadata      Metadata pulled from extra.laminas
-     * @param Collection $configOptions Discovered configuration options from
-     *                                  which to remove package.
-     *
      * @return void
      */
-    private function removePackageFromConfig($package, array $metadata, Collection $configOptions)
+    private function removePackageFromConfig($package, array $metadata)
     {
+        $configOptions = $this->detectConfigurationOptions();
+
+        if ($configOptions->isEmpty()) {
+            // No configuration options found; do nothing.
+            return;
+        }
+
         // Create a collection of types registered in the package.
         $packageTypes = $this->marshalPackageTypes($metadata);
 
@@ -629,13 +626,18 @@ class ComponentInstaller implements
      * @param string     $module    Module to remove
      * @param string     $package   Package in which module is defined
      * @param Collection $injectors Injectors to use for removal
-     *
      * @return void
      */
     private function removeModuleFromConfig($module, $package, Collection $injectors)
     {
         $injectors->each(function (InjectorInterface $injector) use ($module, $package) {
-            $this->io->write(sprintf('<info>    Removing %s from package %s</info>', $module, $package));
+            if (! $injector->isRegistered($module)) {
+                return;
+            }
+
+            $this->io->write(
+                sprintf('<info>    Removing %s from package %s</info>', $module, $package)
+            );
 
             if ($injector->remove($module)) {
                 $this->io->write(sprintf(
@@ -647,8 +649,6 @@ class ComponentInstaller implements
     }
 
     /**
-     * @param InjectorInterface $injector
-     *
      * @return string
      * @todo remove after InjectorInterface has getConfigName defined
      */
@@ -664,8 +664,6 @@ class ComponentInstaller implements
     }
 
     /**
-     * @param ConfigInjectorChain $injector
-     *
      * @return string
      * @todo remove after InjectorInterface has getConfigName defined
      */
@@ -677,8 +675,6 @@ class ComponentInstaller implements
     }
 
     /**
-     * @param AbstractInjector $injector
-     *
      * @return string
      * @todo remove after InjectorInterface has getConfigName defined
      */
@@ -691,7 +687,6 @@ class ComponentInstaller implements
      * Is a given module name valid?
      *
      * @param string $module
-     *
      * @return bool
      */
     private function moduleIsValid($module)
@@ -704,7 +699,6 @@ class ComponentInstaller implements
      *
      * @param string $key Key to examine in metadata
      * @param array  $metadata
-     *
      * @return bool
      */
     private function metadataForKeyIsValid($key, array $metadata)
@@ -735,8 +729,7 @@ class ComponentInstaller implements
      * Attempt to retrieve a cached injector for the current package type.
      *
      * @param int $packageType
-     *
-     * @return null|Injector\InjectorInterface
+     * @return null|InjectorInterface
      */
     private function getCachedInjector($packageType)
     {
@@ -750,12 +743,10 @@ class ComponentInstaller implements
     /**
      * Cache an injector for later use.
      *
-     * @param Injector\InjectorInterface $injector
      * @param int                        $packageType
-     *
      * @return void
      */
-    private function cacheInjector(Injector\InjectorInterface $injector, $packageType)
+    private function cacheInjector(InjectorInterface $injector, $packageType)
     {
         $this->cachedInjectors[$packageType] = $injector;
     }
@@ -766,10 +757,10 @@ class ComponentInstaller implements
      * @param array       $autoload     List of autoloader types and associated autoloader definitions.
      * @param ArrayObject $dependencies Module dependencies defined by the module.
      * @param string      $packagePath  Path to the package on the filesystem.
-     *
-     * @return void
+     * @psalm-param array<string,array<string,string|list<string>>|list<string>> $autoload
+     * @psalm-param ArrayObject<non-empty-string,list<string>>                   $dependencies
      */
-    private function mapAutoloaders(array $autoload, ArrayObject $dependencies, $packagePath)
+    private function mapAutoloaders(array $autoload, ArrayObject $dependencies, string $packagePath): void
     {
         foreach ($autoload as $type => $map) {
             $this->mapType($map, $type, $dependencies, $packagePath);
@@ -783,13 +774,13 @@ class ComponentInstaller implements
      * @param string      $type         Type of autoloader being iterated.
      * @param ArrayObject $dependencies Module dependencies defined by the module.
      * @param string      $packagePath  Path to the package on the filesystem.
-     *
-     * @return void
+     * @psalm-param array<string,string|list<string>>|list<string>           $map
+     * @psalm-param ArrayObject<non-empty-string,list<string>>  $dependencies
      */
-    private function mapType(array $map, $type, ArrayObject $dependencies, $packagePath)
+    private function mapType(array $map, string $type, ArrayObject $dependencies, string $packagePath): void
     {
         foreach ($map as $namespace => $paths) {
-            $paths = (array) $paths;
+            $paths = array_values((array) $paths);
             $this->mapNamespacePaths($paths, $namespace, $type, $dependencies, $packagePath);
         }
     }
@@ -798,15 +789,20 @@ class ComponentInstaller implements
      * Iterate through the paths defined for a given namespace.
      *
      * @param array       $paths        Paths defined for the given namespace.
-     * @param string      $namespace    PHP namespace to which the paths map.
+     * @param string|int  $namespace    PHP namespace to which the paths map or index of file/directory list.
      * @param string      $type         Type of autoloader being iterated.
      * @param ArrayObject $dependencies Module dependencies defined by the module.
      * @param string      $packagePath  Path to the package on the filesystem.
-     *
-     * @return void
+     * @psalm-param list<string> $paths
+     * @psalm-param ArrayObject<non-empty-string,list<string>> $dependencies
      */
-    private function mapNamespacePaths(array $paths, $namespace, $type, ArrayObject $dependencies, $packagePath)
-    {
+    private function mapNamespacePaths(
+        array $paths,
+        $namespace,
+        string $type,
+        ArrayObject $dependencies,
+        string $packagePath
+    ): void {
         foreach ($paths as $path) {
             $this->mapPath($path, $namespace, $type, $dependencies, $packagePath);
         }
@@ -816,15 +812,19 @@ class ComponentInstaller implements
      * Find module dependencies for a given namespace for a given path.
      *
      * @param string      $path         Path to inspect.
-     * @param string      $namespace    PHP namespace to which the paths map.
+     * @param string|int  $namespace    PHP namespace to which the paths map.
      * @param string      $type         Type of autoloader being iterated.
      * @param ArrayObject $dependencies Module dependencies defined by the module.
      * @param string      $packagePath  Path to the package on the filesystem.
-     *
-     * @return void
+     * @psalm-param ArrayObject<non-empty-string,list<string>> $dependencies
      */
-    private function mapPath($path, $namespace, $type, ArrayObject $dependencies, $packagePath)
-    {
+    private function mapPath(
+        string $path,
+        $namespace,
+        string $type,
+        ArrayObject $dependencies,
+        string $packagePath
+    ): void {
         switch ($type) {
             case 'classmap':
                 $fullPath = sprintf('%s/%s', $packagePath, $path);
@@ -842,6 +842,7 @@ class ComponentInstaller implements
                 $modulePath = sprintf('%s/%s', $packagePath, $path);
                 break;
             case 'psr-0':
+                assert(is_string($namespace));
                 $modulePath = sprintf(
                     '%s/%s%s%s',
                     $packagePath,
@@ -851,6 +852,7 @@ class ComponentInstaller implements
                 );
                 break;
             case 'psr-4':
+                assert(is_string($namespace));
                 $modulePath = sprintf(
                     '%s/%s%s',
                     $packagePath,
@@ -873,17 +875,16 @@ class ComponentInstaller implements
         }
 
         // Mimic array + array operation in ArrayObject
-        $dependencies->exchangeArray($dependencies->getArrayCopy() + $result);
+        $dependencies->exchangeArray(array_merge($dependencies->getArrayCopy(), $result));
     }
 
     /**
-     * @param string $file
-     *
-     * @return array
+     * @psalm-return array<string,list<non-empty-string>>
      */
-    private function getModuleDependencies($file)
+    private function getModuleDependencies(string $file): array
     {
         $content = file_get_contents($file);
+        assert(is_string($content));
         if (preg_match('/namespace\s+([^\s]+)\s*;/', $content, $m)) {
             $moduleName = $m[1];
 
@@ -896,6 +897,7 @@ class ComponentInstaller implements
                 );
 
                 if ($dependencies) {
+                    /** @psalm-var list<non-empty-string> $dependencies */
                     return [$moduleName => $dependencies];
                 }
             }
@@ -908,7 +910,7 @@ class ComponentInstaller implements
         PackageProviderDetectionInterface $packageProviderDetection,
         PackageInterface $package
     ): bool {
-        $packageName = $package->getName();
+        $packageName     = $package->getName();
         $devRequirements = $this->composer->getPackage()->getDevRequires();
         if (isset($devRequirements[$packageName])) {
             return true;
@@ -930,11 +932,108 @@ class ComponentInstaller implements
         return true;
     }
 
-    public function deactivate(Composer $composer, IOInterface $io)
+    public function deactivate(Composer $composer, IOInterface $io): void
     {
     }
 
-    public function uninstall(Composer $composer, IOInterface $io)
+    public function uninstall(Composer $composer, IOInterface $io): void
     {
+    }
+
+    /**
+     * @param array<string,mixed> $extra
+     */
+    private function addPackageToConfig(
+        string $name,
+        array $extra,
+        PackageEvent $event,
+        PackageInterface $package
+    ): void {
+        $packageTypes = $this->discoverPackageTypes($extra);
+        $options      = (new ConfigDiscovery())
+            ->getAvailableConfigOptions($packageTypes, $this->projectRoot);
+
+        if ($options->isEmpty()) {
+            // No configuration options found; do nothing.
+            return;
+        }
+
+        $packageProvider = ($this->packageProviderFactory)();
+
+        $packageProviderDetection = $packageProvider->detect($event, $name);
+        $requireDev               = $this->isADevDependency($packageProviderDetection, $package);
+        $dependencies             = $this->loadModuleClassesDependencies($package);
+        $applicationModules       = $this->findApplicationModules();
+
+        $modules = $this->marshalInstallableModules($extra, $options)
+            // Create injectors
+            ->reduce(
+                // @codingStandardsIgnoreStart
+                function (Collection $injectors, string $module) use ($options, $packageTypes, $name, $requireDev): Collection {
+                    // @codingStandardsIgnoreEnd
+                    // Get extra from root package
+                    /** @var array<string,mixed> $rootPackageExtra */
+                    $rootPackageExtra = $this->composer->getPackage()->getExtra();
+                    $rootExtra        = $this->getExtraMetadata($rootPackageExtra);
+                    $whitelist        = $rootExtra['component-whitelist'] ?? [];
+                    assert(is_array($whitelist));
+                    $packageType        = $packageTypes[$module];
+                    $injectors[$module] = $this->promptForConfigOption(
+                        $module,
+                        $options,
+                        $packageType,
+                        $name,
+                        $whitelist,
+                        $requireDev
+                    );
+
+                    return $injectors;
+                },
+                new Collection([])
+            );
+
+        assert($modules instanceof Collection);
+
+        // Inject modules into configuration
+        $modules->each(function (
+            InjectorInterface $injector,
+            string $module
+        ) use (
+            $name,
+            $packageTypes,
+            $applicationModules,
+            $dependencies
+        ) {
+            if (isset($dependencies[$module])) {
+                $injector->setModuleDependencies($dependencies[$module]);
+            }
+
+                $injector->setApplicationModules($applicationModules);
+                $this->injectModuleIntoConfig(
+                    $name,
+                    $module,
+                    $injector,
+                    $packageTypes[$module]
+                );
+        });
+    }
+
+    /**
+     * Use internal property caching as the config options wont change while composer is being executed.
+     */
+    private function detectConfigurationOptions(): Collection
+    {
+        if ($this->discovered) {
+            return $this->discovered;
+        }
+
+        $discovered = (new ConfigDiscovery())
+            ->getAvailableConfigOptions(
+                new Collection(array_keys($this->packageTypes)),
+                $this->projectRoot
+            );
+
+        $this->discovered = $discovered;
+        return $discovered;
     }
 }

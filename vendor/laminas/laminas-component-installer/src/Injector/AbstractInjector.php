@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
- * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ComponentInstaller\Injector;
 
 use Laminas\ComponentInstaller\Exception;
@@ -22,6 +16,7 @@ use function preg_replace;
 use function reset;
 use function sprintf;
 use function strlen;
+use function trim;
 
 abstract class AbstractInjector implements InjectorInterface
 {
@@ -31,6 +26,7 @@ abstract class AbstractInjector implements InjectorInterface
      * Implementations MAY overwrite this value.
      *
      * @param int[]
+     * @psalm-var list<InjectorInterface::TYPE_*>
      */
     protected $allowedTypes = [
         self::TYPE_COMPONENT,
@@ -53,10 +49,11 @@ abstract class AbstractInjector implements InjectorInterface
      * ],
      * ```
      *
-     * @var string[]
+     * @var array<string,string>
+     * @psalm-var array{pattern: non-empty-string, replacement: string}
      */
     protected $cleanUpPatterns = [
-        'pattern' => "/(array\(|\[|,)(\r?\n){2}/s",
+        'pattern'     => "/(array\(|\[|,)(\r?\n){2}/s",
         'replacement' => "\$1\n",
     ];
 
@@ -66,8 +63,9 @@ abstract class AbstractInjector implements InjectorInterface
      * Implementations MUST overwrite this value.
      *
      * @var string
+     * @psalm-param non-empty-string
      */
-    protected $configFile;
+    protected $configFile = 'to-be-overridden';
 
     /**
      * Patterns and replacements to use when registering a code item.
@@ -85,7 +83,11 @@ abstract class AbstractInjector implements InjectorInterface
      * ]
      * ```
      *
-     * @var string[]
+     * @var array<int,array<string,string>>
+     * @psalm-var array<
+     *     InjectorInterface::TYPE_*,
+     *     array{pattern: non-empty-string, replacement: string}
+     * >
      */
     protected $injectionPatterns = [];
 
@@ -95,8 +97,9 @@ abstract class AbstractInjector implements InjectorInterface
      * Implementations MUST overwrite this value.
      *
      * @var string
+     * @psalm-var non-empty-string
      */
-    protected $isRegisteredPattern;
+    protected $isRegisteredPattern = 'to-be-overridden';
 
     /**
      * Patterns and replacements to use when removing a code item.
@@ -112,21 +115,27 @@ abstract class AbstractInjector implements InjectorInterface
      * ],
      * ```
      *
-     * @var string[]
+     * @var array<string,string>
+     * @psalm-var array{pattern: non-empty-string, replacement: string}
      */
-    protected $removalPatterns = [];
+    protected $removalPatterns = [
+        'pattern'     => 'to-be-overridden',
+        'replacement' => '',
+    ];
 
     /**
      * Modules of the application.
      *
-     * @var array
+     * @var array<int,string>
+     * @psalm-var list<non-empty-string>
      */
     protected $applicationModules = [];
 
     /**
      * Dependencies of the module.
      *
-     * @var array
+     * @var array<int,string>
+     * @psalm-var list<non-empty-string>
      */
     protected $moduleDependencies = [];
 
@@ -140,7 +149,8 @@ abstract class AbstractInjector implements InjectorInterface
      */
     public function __construct($projectRoot = '')
     {
-        if (is_string($projectRoot) && ! empty($projectRoot)) {
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
+        if (is_string($projectRoot) && trim($projectRoot) !== '') {
             $this->configFile = sprintf('%s/%s', $projectRoot, $this->configFile);
         }
     }
@@ -181,25 +191,27 @@ abstract class AbstractInjector implements InjectorInterface
             return false;
         }
 
-        if ($type === self::TYPE_COMPONENT
+        if (
+            $type === self::TYPE_COMPONENT
             && $this->moduleDependencies
         ) {
             return $this->injectAfterDependencies($package, $config);
         }
 
-        if ($type === self::TYPE_MODULE
+        if (
+            $type === self::TYPE_MODULE
             && ($firstApplicationModule = $this->findFirstEnabledApplicationModule($this->applicationModules, $config))
         ) {
             return $this->injectBeforeApplicationModules($package, $config, $firstApplicationModule);
         }
 
-        $pattern = $this->injectionPatterns[$type]['pattern'];
+        $pattern     = $this->injectionPatterns[$type]['pattern'];
         $replacement = sprintf(
             $this->injectionPatterns[$type]['replacement'],
             $package
         );
 
-        $config = preg_replace($pattern, $replacement, $config);
+        $config = preg_replace($pattern, $replacement, $config, 1);
         file_put_contents($this->configFile, $config);
 
         return true;
@@ -229,7 +241,7 @@ abstract class AbstractInjector implements InjectorInterface
 
         $lastDependency = $this->findLastDependency($this->moduleDependencies, $config);
 
-        $pattern = sprintf(
+        $pattern     = sprintf(
             $this->injectionPatterns[self::TYPE_DEPENDENCY]['pattern'],
             preg_quote($lastDependency, '/')
         );
@@ -238,7 +250,7 @@ abstract class AbstractInjector implements InjectorInterface
             $package
         );
 
-        $config = preg_replace($pattern, $replacement, $config);
+        $config = preg_replace($pattern, $replacement, $config, 1);
         file_put_contents($this->configFile, $config);
 
         return true;
@@ -258,14 +270,14 @@ abstract class AbstractInjector implements InjectorInterface
         }
 
         $longLength = 0;
-        $last = null;
+        $last       = null;
         foreach ($dependencies as $dependency) {
             preg_match(sprintf($this->isRegisteredPattern, preg_quote($dependency, '/')), $config, $matches);
 
             $length = strlen($matches[0]);
             if ($length > $longLength) {
                 $longLength = $length;
-                $last = $dependency;
+                $last       = $dependency;
             }
         }
 
@@ -284,7 +296,7 @@ abstract class AbstractInjector implements InjectorInterface
      */
     private function injectBeforeApplicationModules($package, $config, $firstApplicationModule)
     {
-        $pattern = sprintf(
+        $pattern     = sprintf(
             $this->injectionPatterns[self::TYPE_BEFORE_APPLICATION]['pattern'],
             preg_quote($firstApplicationModule, '/')
         );
@@ -293,7 +305,7 @@ abstract class AbstractInjector implements InjectorInterface
             $package
         );
 
-        $config = preg_replace($pattern, $replacement, $config);
+        $config = preg_replace($pattern, $replacement, $config, 1);
         file_put_contents($this->configFile, $config);
 
         return true;
@@ -310,7 +322,7 @@ abstract class AbstractInjector implements InjectorInterface
     private function findFirstEnabledApplicationModule(array $modules, $config)
     {
         $shortest = strlen($config);
-        $first = null;
+        $first    = null;
         foreach ($modules as $module) {
             if (! $this->isRegistered($module)) {
                 continue;
@@ -321,7 +333,7 @@ abstract class AbstractInjector implements InjectorInterface
             $length = strlen($matches[0]);
             if ($length < $shortest) {
                 $shortest = $length;
-                $first = $module;
+                $first    = $module;
             }
         }
 
@@ -394,8 +406,8 @@ abstract class AbstractInjector implements InjectorInterface
     /**
      * Is the code item registered in the configuration already?
      *
-     * @var string $package Package name
-     * @var string $config
+     * @param string $package Package name
+     * @param string $config
      * @return bool
      */
     protected function isRegisteredInConfig($package, $config)

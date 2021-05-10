@@ -1,14 +1,14 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
- * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ComponentInstaller;
 
+use Laminas\ComponentInstaller\ConfigDiscovery\DiscoveryInterface;
+use Laminas\ComponentInstaller\Injector\InjectorInterface;
+
+use function assert;
+use function class_exists;
 use function is_array;
+use function is_string;
 
 class ConfigDiscovery
 {
@@ -16,15 +16,16 @@ class ConfigDiscovery
      * Map of known configuration files and their locators.
      *
      * @var string[]
+     * @psalm-var array<string,class-string<DiscoveryInterface>|array<string,class-string<DiscoveryInterface>>>
      */
     private $discovery = [
-        'config/application.config.php' => ConfigDiscovery\ApplicationConfig::class,
-        'config/modules.config.php' => ConfigDiscovery\ModulesConfig::class,
+        'config/application.config.php'      => ConfigDiscovery\ApplicationConfig::class,
+        'config/modules.config.php'          => ConfigDiscovery\ModulesConfig::class,
         'config/development.config.php.dist' => [
             'dist' => ConfigDiscovery\DevelopmentConfig::class,
             'work' => ConfigDiscovery\DevelopmentWorkConfig::class,
         ],
-        'config/config.php' => [
+        'config/config.php'                  => [
             'aggregator' => ConfigDiscovery\ConfigAggregator::class,
             'manager'    => ConfigDiscovery\MezzioConfig::class,
         ],
@@ -34,18 +35,19 @@ class ConfigDiscovery
      * Map of config files to injectors
      *
      * @var string[]
+     * @psalm-var array<string,class-string<InjectorInterface>|array<string,class-string<InjectorInterface>>>
      */
     private $injectors = [
-        'config/application.config.php' => Injector\ApplicationConfigInjector::class,
-        'config/modules.config.php' => Injector\ModulesConfigInjector::class,
+        'config/application.config.php'      => Injector\ApplicationConfigInjector::class,
+        'config/modules.config.php'          => Injector\ModulesConfigInjector::class,
         'config/development.config.php.dist' => [
             'dist' => Injector\DevelopmentConfigInjector::class,
             'work' => Injector\DevelopmentWorkConfigInjector::class,
         ],
-        'config/config.php' => [
+        'config/config.php'                  => [
             'aggregator' => Injector\ConfigAggregatorInjector::class,
             'manager'    => Injector\MezzioConfigInjector::class,
-        ]
+        ],
     ];
 
     /**
@@ -67,11 +69,14 @@ class ConfigDiscovery
 
         Collection::create($this->discovery)
             // Create a discovery class for the discovery type
-            ->map(function ($discoveryClass) use ($projectRoot) {
+            ->map(function ($discoveryClass) use ($projectRoot): DiscoveryInterface {
                 if (is_array($discoveryClass)) {
                     return new ConfigDiscovery\DiscoveryChain($discoveryClass, $projectRoot);
                 }
-                return new $discoveryClass($projectRoot);
+                assert(is_string($discoveryClass) && class_exists($discoveryClass));
+                $discovery = new $discoveryClass($projectRoot);
+                assert($discovery instanceof DiscoveryInterface);
+                return $discovery;
             })
             // Use only those where we can locate a corresponding config file
             ->filter(function ($discovery) {
@@ -82,6 +87,7 @@ class ConfigDiscovery
                 // Look up the injector based on the file type
                 $injectorClass = $this->injectors[$file];
                 if (is_array($injectorClass)) {
+                    /** @psalm-suppress MixedArgument */
                     return new Injector\ConfigInjectorChain(
                         $injectorClass,
                         $discovery,

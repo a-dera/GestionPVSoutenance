@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
- * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ComponentInstaller\ConfigDiscovery;
 
 use function preg_quote;
@@ -29,6 +23,9 @@ class ConfigAggregator extends AbstractDiscovery
      */
     protected $expected = '';
 
+    /**
+     * @param string $projectDirectory
+     */
     public function __construct($projectDirectory = '')
     {
         $this->expected = sprintf(

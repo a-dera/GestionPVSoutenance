@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
- * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ComponentInstaller\ConfigDiscovery;
 
 use function file_get_contents;
@@ -65,6 +59,6 @@ abstract class AbstractDiscovery implements DiscoveryInterface
         }
 
         $config = file_get_contents($this->configFile);
-        return (1 === preg_match($this->expected, $config));
+        return 1 === preg_match($this->expected, $config);
     }
 }

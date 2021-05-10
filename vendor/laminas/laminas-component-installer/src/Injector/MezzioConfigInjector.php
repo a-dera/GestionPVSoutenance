@@ -1,15 +1,10 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
- * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ComponentInstaller\Injector;
 
 use Laminas\ComponentInstaller\ConfigDiscovery\MezzioConfig as MezzioConfigDiscovery;
 
+use function assert;
 use function preg_quote;
 use function sprintf;
 
@@ -17,7 +12,7 @@ class MezzioConfigInjector extends AbstractInjector
 {
     use ConditionalDiscoveryTrait;
 
-    const DEFAULT_CONFIG_FILE = 'config/config.php';
+    public const DEFAULT_CONFIG_FILE = 'config/config.php';
 
     /**
      * {@inheritDoc}
@@ -26,11 +21,7 @@ class MezzioConfigInjector extends AbstractInjector
         self::TYPE_CONFIG_PROVIDER,
     ];
 
-    /**
-     * Configuration file to update.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $configFile = self::DEFAULT_CONFIG_FILE;
 
     /**
@@ -46,28 +37,26 @@ class MezzioConfigInjector extends AbstractInjector
      *
      * Pattern is set in constructor due to PCRE quoting issues.
      *
-     * @var string[]
+     * @var array
+     * @psalm-var array<
+     *     InjectorInterface::TYPE_*,
+     *     array{pattern: non-empty-string, replacement: string}
+     * >
      */
-    protected $injectionPatterns = [
-        self::TYPE_CONFIG_PROVIDER => [
-            'pattern'     => '',
-            'replacement' => "\$1\n    %s::class,",
-        ],
-    ];
+    protected $injectionPatterns = [];
 
     /**
      * Pattern to use to determine if the code item is registered.
      *
      * Set in constructor due to PCRE quoting issues.
      *
-     * @var string
+     * @var non-empty-string
      */
-    protected $isRegisteredPattern = '';
+    protected $isRegisteredPattern = 'overridden-by-constructor';
 
     /**
-     * Patterns and replacements to use when removing a code item.
-     *
-     * @var string[]
+     * @var array
+     * @psalm-var array{pattern: non-empty-string, replacement: string}
      */
     protected $removalPatterns = [
         'pattern'     => '/^\s+%s::class,\s*$/m',
@@ -88,11 +77,16 @@ class MezzioConfigInjector extends AbstractInjector
             . preg_quote('Mezzio\ConfigManager\\')
             . ')?ConfigManager\(\s*(?:array\(|\[).*\s+%s::class/s';
 
-        $this->injectionPatterns[self::TYPE_CONFIG_PROVIDER]['pattern'] = sprintf(
+        $pattern = sprintf(
             '/(new (?:%s?%s)?ConfigManager\(\s*(?:array\(|\[)\s*)$/m',
             preg_quote('\\'),
             preg_quote('Mezzio\ConfigManager\\')
         );
+        assert($pattern !== '');
+        $this->injectionPatterns[self::TYPE_CONFIG_PROVIDER] = [
+            'pattern'     => $pattern,
+            'replacement' => "\$1\n    %s::class,",
+        ];
 
         parent::__construct($projectRoot);
     }

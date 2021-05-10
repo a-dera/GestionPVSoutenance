@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'abd4e19e03bd61a3f7f34f851b3c401cebd57ff7',
+    'reference' => '1840cae50b86030dd1dc4a797bd640e232251a30',
     'name' => 'laminas/laminas-mvc-skeleton',
   ),
   'versions' => 
@@ -240,12 +240,12 @@ private static $installed = array (
     ),
     'laminas/laminas-component-installer' => 
     array (
-      'pretty_version' => '2.3.2',
-      'version' => '2.3.2.0',
+      'pretty_version' => '2.5.0',
+      'version' => '2.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ea0c0d147f229ff78eeab52f4097e532ed7e2351',
+      'reference' => '223d81cf648ff9380bd13cfe07a31324b0ffc8b8',
     ),
     'laminas/laminas-config' => 
     array (
@@ -515,7 +515,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'abd4e19e03bd61a3f7f34f851b3c401cebd57ff7',
+      'reference' => '1840cae50b86030dd1dc4a797bd640e232251a30',
     ),
     'laminas/laminas-paginator' => 
     array (

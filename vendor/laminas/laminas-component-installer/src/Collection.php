@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
- * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ComponentInstaller;
 
 use ArrayAccess;
@@ -30,13 +24,11 @@ class Collection implements
     Countable,
     IteratorAggregate
 {
-    /**
-     * @param array
-     */
+    /** @var array */
     protected $items;
 
     /**
-     * @param array|Traversable $items
+     * @param iterable $items
      * @throws InvalidArgumentException
      */
     public function __construct($items)
@@ -55,10 +47,10 @@ class Collection implements
     /**
      * Factory method
      *
-     * @param array|Traversable
+     * @param iterable $items
      * @return static
      */
-    public static function create($items)
+    public static function create($items): self
     {
         return new static($items);
     }
@@ -76,7 +68,6 @@ class Collection implements
     /**
      * Apply a callback to each item in the collection.
      *
-     * @param callable $callback
      * @return self
      */
     public function each(callable $callback)
@@ -90,7 +81,6 @@ class Collection implements
     /**
      * Reduce the collection to a single value.
      *
-     * @param callable $callback
      * @param mixed $initial Initial value.
      * @return mixed
      */
@@ -110,7 +100,6 @@ class Collection implements
      *
      * Filter callback should return true for values to keep.
      *
-     * @param callable $callback
      * @return static
      */
     public function filter(callable $callback)
@@ -128,7 +117,6 @@ class Collection implements
      *
      * Filter callback should return true for values to reject.
      *
-     * @param callable $callback
      * @return static
      */
     public function reject(callable $callback)
@@ -146,7 +134,6 @@ class Collection implements
      *
      * Callback should return the new value to use.
      *
-     * @param callable $callback
      * @return static
      */
     public function map(callable $callback)
@@ -226,7 +213,7 @@ class Collection implements
      *
      * If $offset is null, pushes the item onto the stack.
      *
-     * @param string|int $offset
+     * @param string|int|null $offset
      * @param mixed $value
      * @return void
      */

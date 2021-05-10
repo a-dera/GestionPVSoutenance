@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-component-installer for the canonical source repository
- * @copyright https://github.com/laminas/laminas-component-installer/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-component-installer/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ComponentInstaller\Injector;
 
 use Laminas\ComponentInstaller\Collection;
@@ -27,19 +21,16 @@ class ConfigInjectorChain implements InjectorInterface
      *
      * Implementations MAY overwrite this value.
      *
-     * @param int[]
+     * @var array<int,int>
+     * @psalm-var list<InjectorInterface::TYPE_*>
      */
-    protected $allowedTypes;
+    protected $allowedTypes = [];
 
     /**
-     * Constructor
-     *
      * Optionally accept the project root directory; if non-empty, it is used
      * to prefix the $configFile.
      *
-     * @param mixed $injectors
-     * @param DiscoveryChainInterface $discoveryChain
-     * @param Collection $availableTypes
+     * @param iterable<array-key,InjectorInterface> $injectors
      * @param string $projectRoot
      */
     public function __construct(
@@ -83,8 +74,10 @@ class ConfigInjectorChain implements InjectorInterface
         }
         $allowedTypes = [];
         foreach ($this->chain->getIterator() as $injector) {
-            $allowedTypes = $allowedTypes + $injector->getTypesAllowed();
+            $allowedTypes += $injector->getTypesAllowed();
         }
+
+        /** @psalm-var list<InjectorInterface::TYPE_*> $allowedTypes */
         $this->allowedTypes = $allowedTypes;
         return $allowedTypes;
     }
@@ -95,7 +88,7 @@ class ConfigInjectorChain implements InjectorInterface
     public function isRegistered($package)
     {
         $isRegisteredCount = $this->chain
-            ->filter(function ($injector) use ($package) {
+            ->filter(function (InjectorInterface $injector) use ($package): bool {
                 return $injector->isRegistered($package);
             })
             ->count();
@@ -133,7 +126,6 @@ class ConfigInjectorChain implements InjectorInterface
     }
 
     /**
-     *
      * @return Collection
      */
     public function getCollection()
