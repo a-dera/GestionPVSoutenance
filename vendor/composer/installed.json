@@ -238,17 +238,17 @@
         },
         {
             "name": "laminas/laminas-cache",
-            "version": "2.11.2",
-            "version_normalized": "2.11.2.0",
+            "version": "2.11.3",
+            "version_normalized": "2.11.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-cache.git",
-                "reference": "f825aecc67f40e8bc499500373e5de700b95d00b"
+                "reference": "775cf8815cfd5a654f9b7b341ebaf28e72aa457d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-cache/zipball/f825aecc67f40e8bc499500373e5de700b95d00b",
-                "reference": "f825aecc67f40e8bc499500373e5de700b95d00b",
+                "url": "https://api.github.com/repos/laminas/laminas-cache/zipball/775cf8815cfd5a654f9b7b341ebaf28e72aa457d",
+                "reference": "775cf8815cfd5a654f9b7b341ebaf28e72aa457d",
                 "shasum": ""
             },
             "require": {
@@ -292,7 +292,7 @@
             "suggest": {
                 "laminas/laminas-serializer": "Laminas\\Serializer component"
             },
-            "time": "2021-06-03T19:18:41+00:00",
+            "time": "2021-07-08T18:22:59+00:00",
             "type": "library",
             "extra": {
                 "laminas": {
