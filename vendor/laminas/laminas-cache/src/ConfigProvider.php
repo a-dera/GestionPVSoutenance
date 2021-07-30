@@ -1,12 +1,15 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-cache for the canonical source repository
- * @copyright https://github.com/laminas/laminas-cache/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-cache/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\Cache;
+
+use Laminas\Cache\Command\DeprecatedStorageFactoryConfigurationCheckCommand;
+use Laminas\Cache\Command\DeprecatedStorageFactoryConfigurationCheckCommandFactory;
+use Laminas\Cache\Service\StorageAdapterFactory;
+use Laminas\Cache\Service\StorageAdapterFactoryFactory;
+use Laminas\Cache\Service\StorageAdapterFactoryInterface;
+use Laminas\Cache\Service\StoragePluginFactory;
+use Laminas\Cache\Service\StoragePluginFactoryFactory;
+use Laminas\Cache\Service\StoragePluginFactoryInterface;
 
 class ConfigProvider
 {
@@ -19,6 +22,7 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencyConfig(),
+            'laminas-cli' => $this->getCliConfig(),
         ];
     }
 
@@ -35,6 +39,8 @@ class ConfigProvider
                 \Zend\Cache\PatternPluginManager::class => PatternPluginManager::class,
                 \Zend\Cache\Storage\AdapterPluginManager::class => Storage\AdapterPluginManager::class,
                 \Zend\Cache\Storage\PluginManager::class => Storage\PluginManager::class,
+                StoragePluginFactoryInterface::class  => StoragePluginFactory::class,
+                StorageAdapterFactoryInterface::class => StorageAdapterFactory::class,
             ],
             'abstract_factories' => [
                 Service\StorageCacheAbstractServiceFactory::class,
@@ -43,6 +49,23 @@ class ConfigProvider
                 PatternPluginManager::class => Service\PatternPluginManagerFactory::class,
                 Storage\AdapterPluginManager::class => Service\StorageAdapterPluginManagerFactory::class,
                 Storage\PluginManager::class => Service\StoragePluginManagerFactory::class,
+                DeprecatedStorageFactoryConfigurationCheckCommand::class =>
+                    DeprecatedStorageFactoryConfigurationCheckCommandFactory::class,
+                StoragePluginFactory::class  => StoragePluginFactoryFactory::class,
+                StorageAdapterFactory::class => StorageAdapterFactoryFactory::class,
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    public function getCliConfig(): array
+    {
+        return [
+            'commands' => [
+                DeprecatedStorageFactoryConfigurationCheckCommand::NAME =>
+                    DeprecatedStorageFactoryConfigurationCheckCommand::class,
             ],
         ];
     }

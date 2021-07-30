@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-cache for the canonical source repository
- * @copyright https://github.com/laminas/laminas-cache/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-cache/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\Cache\PatternPluginManager;
 
 use Laminas\Cache\Exception;
@@ -28,7 +22,9 @@ trait PatternPluginManagerTrait
      */
     public function build($plugin, array $options = null)
     {
-        if (empty($options)) {
+        $options = $options ?? [];
+
+        if ($options === []) {
             return parent::build($plugin);
         }
 
