@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba5efc5f1e659f559bc6b29fd8068c80",
+    "content-hash": "20b1cd19636cc9d9fb33f63379cc4ea7",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -163,16 +163,16 @@
         },
         {
             "name": "laminas/laminas-cache",
-            "version": "2.12.0",
+            "version": "2.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-cache.git",
-                "reference": "302a91ecda05fba32dc3e913c1604b049906ad27"
+                "reference": "0b7ef4d22990dc7dda3d755f82bd1de19aa4cc9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-cache/zipball/302a91ecda05fba32dc3e913c1604b049906ad27",
-                "reference": "302a91ecda05fba32dc3e913c1604b049906ad27",
+                "url": "https://api.github.com/repos/laminas/laminas-cache/zipball/0b7ef4d22990dc7dda3d755f82bd1de19aa4cc9b",
+                "reference": "0b7ef4d22990dc7dda3d755f82bd1de19aa4cc9b",
                 "shasum": ""
             },
             "require": {
@@ -264,7 +264,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2021-07-27T19:30:25+00:00"
+            "time": "2021-08-01T10:17:21+00:00"
         },
         {
             "name": "laminas/laminas-cache-storage-adapter-apc",
