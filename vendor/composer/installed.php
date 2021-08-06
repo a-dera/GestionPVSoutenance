@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '379693c72bedd8ad411fe825c0d06c07c7af432b',
+        'reference' => 'a8d9c23c45e67043f7e086dc2301a4720241d80e',
         'name' => 'laminas/laminas-mvc-skeleton',
         'dev' => true,
     ),
@@ -53,12 +53,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-cache' => array(
-            'pretty_version' => '2.12.1',
-            'version' => '2.12.1.0',
+            'pretty_version' => '2.12.2',
+            'version' => '2.12.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-cache',
             'aliases' => array(),
-            'reference' => '0b7ef4d22990dc7dda3d755f82bd1de19aa4cc9b',
+            'reference' => '36f5cef39f660cae7d0e1361e86e3b47d6448391',
             'dev_requirement' => false,
         ),
         'laminas/laminas-cache-storage-adapter-apc' => array(
@@ -338,12 +338,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-hydrator' => array(
-            'pretty_version' => '4.2.1',
-            'version' => '4.2.1.0',
+            'pretty_version' => '4.2.2',
+            'version' => '4.2.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-hydrator',
             'aliases' => array(),
-            'reference' => 'e2749d6cda1dbbe730ba235a77323bf4f0b1f8f2',
+            'reference' => 'ed5d9cacc551a37b552cb44e1bbf315512612248',
             'dev_requirement' => false,
         ),
         'laminas/laminas-i18n' => array(
@@ -487,7 +487,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '379693c72bedd8ad411fe825c0d06c07c7af432b',
+            'reference' => 'a8d9c23c45e67043f7e086dc2301a4720241d80e',
             'dev_requirement' => false,
         ),
         'laminas/laminas-paginator' => array(
@@ -536,12 +536,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-stdlib' => array(
-            'pretty_version' => '3.4.0',
-            'version' => '3.4.0.0',
+            'pretty_version' => '3.5.0',
+            'version' => '3.5.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-stdlib',
             'aliases' => array(),
-            'reference' => 'e89c2268c9cad25099f562f7f015c28c5dd383c9',
+            'reference' => 'c8ac6a76a133e682acfabc821d4a2ec646934b12',
             'dev_requirement' => false,
         ),
         'laminas/laminas-test' => array(
@@ -1244,12 +1244,6 @@
             'dev_requirement' => false,
             'replaced' => array(
                 0 => '^2.9.1',
-            ),
-        ),
-        'zendframework/zend-stdlib' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => '^3.2.1',
             ),
         ),
         'zendframework/zend-test' => array(

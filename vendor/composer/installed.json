@@ -238,17 +238,17 @@
         },
         {
             "name": "laminas/laminas-cache",
-            "version": "2.12.1",
-            "version_normalized": "2.12.1.0",
+            "version": "2.12.2",
+            "version_normalized": "2.12.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-cache.git",
-                "reference": "0b7ef4d22990dc7dda3d755f82bd1de19aa4cc9b"
+                "reference": "36f5cef39f660cae7d0e1361e86e3b47d6448391"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-cache/zipball/0b7ef4d22990dc7dda3d755f82bd1de19aa4cc9b",
-                "reference": "0b7ef4d22990dc7dda3d755f82bd1de19aa4cc9b",
+                "url": "https://api.github.com/repos/laminas/laminas-cache/zipball/36f5cef39f660cae7d0e1361e86e3b47d6448391",
+                "reference": "36f5cef39f660cae7d0e1361e86e3b47d6448391",
                 "shasum": ""
             },
             "require": {
@@ -299,7 +299,7 @@
                 "laminas/laminas-cli": "The laminas-cli binary can be used to consume commands provided by this component",
                 "laminas/laminas-serializer": "Laminas\\Serializer component"
             },
-            "time": "2021-08-01T10:17:21+00:00",
+            "time": "2021-08-06T07:32:13+00:00",
             "type": "library",
             "extra": {
                 "laminas": {
@@ -2467,17 +2467,17 @@
         },
         {
             "name": "laminas/laminas-hydrator",
-            "version": "4.2.1",
-            "version_normalized": "4.2.1.0",
+            "version": "4.2.2",
+            "version_normalized": "4.2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-hydrator.git",
-                "reference": "e2749d6cda1dbbe730ba235a77323bf4f0b1f8f2"
+                "reference": "ed5d9cacc551a37b552cb44e1bbf315512612248"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-hydrator/zipball/e2749d6cda1dbbe730ba235a77323bf4f0b1f8f2",
-                "reference": "e2749d6cda1dbbe730ba235a77323bf4f0b1f8f2",
+                "url": "https://api.github.com/repos/laminas/laminas-hydrator/zipball/ed5d9cacc551a37b552cb44e1bbf315512612248",
+                "reference": "ed5d9cacc551a37b552cb44e1bbf315512612248",
                 "shasum": ""
             },
             "require": {
@@ -2504,7 +2504,7 @@
                 "laminas/laminas-serializer": "^2.9, to use the SerializableStrategy",
                 "laminas/laminas-servicemanager": "^3.3, to support hydrator plugin manager usage"
             },
-            "time": "2021-06-29T11:04:20+00:00",
+            "time": "2021-08-02T15:28:57+00:00",
             "type": "library",
             "extra": {
                 "laminas": {
@@ -4073,25 +4073,24 @@
         },
         {
             "name": "laminas/laminas-stdlib",
-            "version": "3.4.0",
-            "version_normalized": "3.4.0.0",
+            "version": "3.5.0",
+            "version_normalized": "3.5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-stdlib.git",
-                "reference": "e89c2268c9cad25099f562f7f015c28c5dd383c9"
+                "reference": "c8ac6a76a133e682acfabc821d4a2ec646934b12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-stdlib/zipball/e89c2268c9cad25099f562f7f015c28c5dd383c9",
-                "reference": "e89c2268c9cad25099f562f7f015c28c5dd383c9",
+                "url": "https://api.github.com/repos/laminas/laminas-stdlib/zipball/c8ac6a76a133e682acfabc821d4a2ec646934b12",
+                "reference": "c8ac6a76a133e682acfabc821d4a2ec646934b12",
                 "shasum": ""
             },
             "require": {
-                "laminas/laminas-zendframework-bridge": "^1.0",
                 "php": "^7.3 || ^8.0"
             },
-            "replace": {
-                "zendframework/zend-stdlib": "^3.2.1"
+            "conflict": {
+                "zendframework/zend-stdlib": "*"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~2.3.0",
@@ -4100,7 +4099,7 @@
                 "psalm/plugin-phpunit": "^0.16.0",
                 "vimeo/psalm": "^4.7"
             },
-            "time": "2021-06-28T21:37:31+00:00",
+            "time": "2021-08-03T13:40:40+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
