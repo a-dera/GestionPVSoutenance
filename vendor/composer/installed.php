@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'a8d9c23c45e67043f7e086dc2301a4720241d80e',
+        'reference' => '7666133efd4aff7a27676771f0171b2648411d01',
         'name' => 'laminas/laminas-mvc-skeleton',
         'dev' => true,
     ),
@@ -53,12 +53,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-cache' => array(
-            'pretty_version' => '2.12.2',
-            'version' => '2.12.2.0',
+            'pretty_version' => '2.13.0',
+            'version' => '2.13.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-cache',
             'aliases' => array(),
-            'reference' => '36f5cef39f660cae7d0e1361e86e3b47d6448391',
+            'reference' => '566948e32f30881cb903ffbd0e3e20dac00cd83e',
             'dev_requirement' => false,
         ),
         'laminas/laminas-cache-storage-adapter-apc' => array(
@@ -487,7 +487,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'a8d9c23c45e67043f7e086dc2301a4720241d80e',
+            'reference' => '7666133efd4aff7a27676771f0171b2648411d01',
             'dev_requirement' => false,
         ),
         'laminas/laminas-paginator' => array(

@@ -238,17 +238,17 @@
         },
         {
             "name": "laminas/laminas-cache",
-            "version": "2.12.2",
-            "version_normalized": "2.12.2.0",
+            "version": "2.13.0",
+            "version_normalized": "2.13.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-cache.git",
-                "reference": "36f5cef39f660cae7d0e1361e86e3b47d6448391"
+                "reference": "566948e32f30881cb903ffbd0e3e20dac00cd83e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-cache/zipball/36f5cef39f660cae7d0e1361e86e3b47d6448391",
-                "reference": "36f5cef39f660cae7d0e1361e86e3b47d6448391",
+                "url": "https://api.github.com/repos/laminas/laminas-cache/zipball/566948e32f30881cb903ffbd0e3e20dac00cd83e",
+                "reference": "566948e32f30881cb903ffbd0e3e20dac00cd83e",
                 "shasum": ""
             },
             "require": {
@@ -299,7 +299,7 @@
                 "laminas/laminas-cli": "The laminas-cli binary can be used to consume commands provided by this component",
                 "laminas/laminas-serializer": "Laminas\\Serializer component"
             },
-            "time": "2021-08-06T07:32:13+00:00",
+            "time": "2021-08-08T10:21:18+00:00",
             "type": "library",
             "extra": {
                 "laminas": {
