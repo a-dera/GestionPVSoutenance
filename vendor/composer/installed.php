@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'b5de38f898df64f2ec45036447b3dad4f6b55a78',
+        'reference' => 'a4fcb2ac7f62e0d80d69facd5f7e7c50ee245fb9',
         'name' => 'laminas/laminas-mvc-skeleton',
         'dev' => true,
     ),
@@ -365,12 +365,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-json' => array(
-            'pretty_version' => '3.2.0',
-            'version' => '3.2.0.0',
+            'pretty_version' => '3.3.0',
+            'version' => '3.3.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-json',
             'aliases' => array(),
-            'reference' => '1e3b64d3b21dac0511e628ae8debc81002d14e3c',
+            'reference' => '9a0ce9f330b7d11e70c4acb44d67e8c4f03f437f',
             'dev_requirement' => false,
         ),
         'laminas/laminas-loader' => array(
@@ -487,7 +487,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'b5de38f898df64f2ec45036447b3dad4f6b55a78',
+            'reference' => 'a4fcb2ac7f62e0d80d69facd5f7e7c50ee245fb9',
             'dev_requirement' => false,
         ),
         'laminas/laminas-paginator' => array(
@@ -1136,12 +1136,6 @@
             'dev_requirement' => false,
             'replaced' => array(
                 0 => '^2.10.1',
-            ),
-        ),
-        'zendframework/zend-json' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => '^3.1.2',
             ),
         ),
         'zendframework/zend-loader' => array(
