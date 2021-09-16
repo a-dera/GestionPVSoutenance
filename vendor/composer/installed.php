@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'a4fcb2ac7f62e0d80d69facd5f7e7c50ee245fb9',
+        'reference' => '01fcdc94fa9ad9f99f6189a441a3964c447ffc69',
         'name' => 'laminas/laminas-mvc-skeleton',
         'dev' => true,
     ),
@@ -239,12 +239,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-db' => array(
-            'pretty_version' => '2.12.0',
-            'version' => '2.12.0.0',
+            'pretty_version' => '2.13.0',
+            'version' => '2.13.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-db',
             'aliases' => array(),
-            'reference' => '80cbba4e749f9eb7d8036172acb9ad41e8b6923f',
+            'reference' => 'a7acfdb60cf3b6c357029f515184cc4df93e1933',
             'dev_requirement' => false,
         ),
         'laminas/laminas-developer-tools' => array(
@@ -338,12 +338,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-hydrator' => array(
-            'pretty_version' => '4.2.2',
-            'version' => '4.2.2.0',
+            'pretty_version' => '4.3.1',
+            'version' => '4.3.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-hydrator',
             'aliases' => array(),
-            'reference' => 'ed5d9cacc551a37b552cb44e1bbf315512612248',
+            'reference' => 'cc5ea6b42d318dbac872d94e8dca2d3013a37ab5',
             'dev_requirement' => false,
         ),
         'laminas/laminas-i18n' => array(
@@ -487,7 +487,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'a4fcb2ac7f62e0d80d69facd5f7e7c50ee245fb9',
+            'reference' => '01fcdc94fa9ad9f99f6189a441a3964c447ffc69',
             'dev_requirement' => false,
         ),
         'laminas/laminas-paginator' => array(
@@ -536,12 +536,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-stdlib' => array(
-            'pretty_version' => '3.5.0',
-            'version' => '3.5.0.0',
+            'pretty_version' => '3.6.0',
+            'version' => '3.6.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-stdlib',
             'aliases' => array(),
-            'reference' => 'c8ac6a76a133e682acfabc821d4a2ec646934b12',
+            'reference' => 'c53d8537f108fac3fae652677a19735db730ba46',
             'dev_requirement' => false,
         ),
         'laminas/laminas-test' => array(
@@ -590,12 +590,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-zendframework-bridge' => array(
-            'pretty_version' => '1.3.0',
-            'version' => '1.3.0.0',
+            'pretty_version' => '1.4.0',
+            'version' => '1.4.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-zendframework-bridge',
             'aliases' => array(),
-            'reference' => '13af2502d9bb6f7d33be2de4b51fb68c6cdb476e',
+            'reference' => 'bf180a382393e7db5c1e8d0f2ec0c4af9c724baf',
             'dev_requirement' => false,
         ),
         'myclabs/deep-copy' => array(
@@ -1060,12 +1060,6 @@
                 0 => '2.8.0',
             ),
         ),
-        'zendframework/zend-db' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => '^2.11.0',
-            ),
-        ),
         'zendframework/zend-developer-tools' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -1118,12 +1112,6 @@
             'dev_requirement' => false,
             'replaced' => array(
                 0 => '^2.11.2',
-            ),
-        ),
-        'zendframework/zend-hydrator' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => '^3.0.2',
             ),
         ),
         'zendframework/zend-i18n' => array(
