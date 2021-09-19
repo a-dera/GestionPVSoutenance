@@ -1605,8 +1605,8 @@
         },
         {
             "name": "laminas/laminas-db",
-            "version": "2.13.1",
-            "version_normalized": "2.13.1.0",
+            "version": "2.13.2",
+            "version_normalized": "2.13.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-db.git",
