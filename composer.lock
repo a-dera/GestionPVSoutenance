@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e8318a79c1e99d05bc25634f13a33d7",
+    "content-hash": "856996818470b5804d6af426ef1d6d95",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -1477,16 +1477,16 @@
         },
         {
             "name": "laminas/laminas-db",
-            "version": "2.13.2",
+            "version": "2.13.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-db.git",
-                "reference": "7710d3cf2ba8d1b325cc6408e17c8e500c1d131a"
+                "reference": "e1bcf243f6e56f02590f11a149cd75403e873241"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-db/zipball/7710d3cf2ba8d1b325cc6408e17c8e500c1d131a",
-                "reference": "7710d3cf2ba8d1b325cc6408e17c8e500c1d131a",
+                "url": "https://api.github.com/repos/laminas/laminas-db/zipball/e1bcf243f6e56f02590f11a149cd75403e873241",
+                "reference": "e1bcf243f6e56f02590f11a149cd75403e873241",
                 "shasum": ""
             },
             "require": {
@@ -1544,7 +1544,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2021-09-16T20:21:59+00:00"
+            "time": "2021-09-19T07:38:14+00:00"
         },
         {
             "name": "laminas/laminas-development-mode",

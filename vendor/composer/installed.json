@@ -1605,17 +1605,17 @@
         },
         {
             "name": "laminas/laminas-db",
-            "version": "2.13.2",
-            "version_normalized": "2.13.2.0",
+            "version": "2.13.3",
+            "version_normalized": "2.13.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-db.git",
-                "reference": "7710d3cf2ba8d1b325cc6408e17c8e500c1d131a"
+                "reference": "e1bcf243f6e56f02590f11a149cd75403e873241"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-db/zipball/7710d3cf2ba8d1b325cc6408e17c8e500c1d131a",
-                "reference": "7710d3cf2ba8d1b325cc6408e17c8e500c1d131a",
+                "url": "https://api.github.com/repos/laminas/laminas-db/zipball/e1bcf243f6e56f02590f11a149cd75403e873241",
+                "reference": "e1bcf243f6e56f02590f11a149cd75403e873241",
                 "shasum": ""
             },
             "require": {
@@ -1637,7 +1637,7 @@
                 "laminas/laminas-hydrator": "(^3.2 || ^4.3) Laminas\\Hydrator component for using HydratingResultSets",
                 "laminas/laminas-servicemanager": "Laminas\\ServiceManager component"
             },
-            "time": "2021-09-16T20:21:59+00:00",
+            "time": "2021-09-19T07:38:14+00:00",
             "type": "library",
             "extra": {
                 "laminas": {
