@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c7fa4e499288e41c53242086b0431e9bf463de14',
+        'reference' => 'be6930e2ce5e72b8f7de597c5809e005848dbfb7',
         'name' => 'laminas/laminas-mvc-skeleton',
         'dev' => true,
     ),
@@ -302,12 +302,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-eventmanager' => array(
-            'pretty_version' => '3.3.1',
-            'version' => '3.3.1.0',
+            'pretty_version' => '3.4.0',
+            'version' => '3.4.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-eventmanager',
             'aliases' => array(),
-            'reference' => '966c859b67867b179fde1eff0cd38df51472ce4a',
+            'reference' => 'a93fd278c97b2d41ebbce5ba048a24e3e6f580ba',
             'dev_requirement' => false,
         ),
         'laminas/laminas-filter' => array(
@@ -487,7 +487,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c7fa4e499288e41c53242086b0431e9bf463de14',
+            'reference' => 'be6930e2ce5e72b8f7de597c5809e005848dbfb7',
             'dev_requirement' => false,
         ),
         'laminas/laminas-paginator' => array(
@@ -527,12 +527,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-session' => array(
-            'pretty_version' => '2.11.0',
-            'version' => '2.11.0.0',
+            'pretty_version' => '2.12.0',
+            'version' => '2.12.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-session',
             'aliases' => array(),
-            'reference' => 'c4e19f1a3bc6f7ecf6f25f79b32717a544236922',
+            'reference' => 'fc538bba5196e3b5937ae7db3c713fc7c0829881',
             'dev_requirement' => false,
         ),
         'laminas/laminas-stdlib' => array(
@@ -1084,12 +1084,6 @@
                 0 => '^2.6.1',
             ),
         ),
-        'zendframework/zend-eventmanager' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => '^3.2.1',
-            ),
-        ),
         'zendframework/zend-filter' => array(
             'dev_requirement' => false,
             'replaced' => array(
@@ -1214,12 +1208,6 @@
             'dev_requirement' => false,
             'replaced' => array(
                 0 => '^3.4.0',
-            ),
-        ),
-        'zendframework/zend-session' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => '^2.9.1',
             ),
         ),
         'zendframework/zend-test' => array(
