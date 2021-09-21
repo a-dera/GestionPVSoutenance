@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '9f8df24e975850a8a8c035673bdd4872ca07dc07',
+        'reference' => 'c7fa4e499288e41c53242086b0431e9bf463de14',
         'name' => 'laminas/laminas-mvc-skeleton',
         'dev' => true,
     ),
@@ -239,12 +239,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-db' => array(
-            'pretty_version' => '2.13.3',
-            'version' => '2.13.3.0',
+            'pretty_version' => '2.13.4',
+            'version' => '2.13.4.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-db',
             'aliases' => array(),
-            'reference' => 'e1bcf243f6e56f02590f11a149cd75403e873241',
+            'reference' => 'cdabb4bfa669c2c0edb0cb4e014c15b41afd3fb1',
             'dev_requirement' => false,
         ),
         'laminas/laminas-developer-tools' => array(
@@ -487,7 +487,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '9f8df24e975850a8a8c035673bdd4872ca07dc07',
+            'reference' => 'c7fa4e499288e41c53242086b0431e9bf463de14',
             'dev_requirement' => false,
         ),
         'laminas/laminas-paginator' => array(
