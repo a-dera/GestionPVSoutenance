@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'be6930e2ce5e72b8f7de597c5809e005848dbfb7',
+        'reference' => '6e2bbe6257ea6d09f6ef5230a6086004d45ccadc',
         'name' => 'laminas/laminas-mvc-skeleton',
         'dev' => true,
     ),
@@ -212,12 +212,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-component-installer' => array(
-            'pretty_version' => '2.5.0',
-            'version' => '2.5.0.0',
+            'pretty_version' => '2.5.1',
+            'version' => '2.5.1.0',
             'type' => 'composer-plugin',
             'install_path' => __DIR__ . '/../laminas/laminas-component-installer',
             'aliases' => array(),
-            'reference' => '223d81cf648ff9380bd13cfe07a31324b0ffc8b8',
+            'reference' => '6f1e11473861e4e2208178b1dfa395a992039674',
             'dev_requirement' => false,
         ),
         'laminas/laminas-config' => array(
@@ -487,7 +487,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'be6930e2ce5e72b8f7de597c5809e005848dbfb7',
+            'reference' => '6e2bbe6257ea6d09f6ef5230a6086004d45ccadc',
             'dev_requirement' => false,
         ),
         'laminas/laminas-paginator' => array(
