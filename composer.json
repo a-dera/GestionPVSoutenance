@@ -12,7 +12,7 @@
     "require": {
         "php": "^7.3",
         "laminas/laminas-component-installer": "2.5.1",
-        "laminas/laminas-development-mode": "3.3.0",
+        "laminas/laminas-development-mode": "3.4.1",
         "laminas/laminas-mvc": "3.2.0",
         "laminas/laminas-cache": "2.13.0",
         "laminas/laminas-db": "2.13.4",
