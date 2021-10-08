@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '1eaa876e207fcf55316cd5d216a885c7618f6dfc',
+        'reference' => '27072a9c4d2eba46d847bc73752a2c61a64669a2',
         'name' => 'laminas/laminas-mvc-skeleton',
         'dev' => true,
     ),
@@ -347,12 +347,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-i18n' => array(
-            'pretty_version' => '2.11.1',
-            'version' => '2.11.1.0',
+            'pretty_version' => '2.11.2',
+            'version' => '2.11.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-i18n',
             'aliases' => array(),
-            'reference' => '5e85a8facc5534e856cc7f5b4326533eede84b8a',
+            'reference' => '78adb53ebf6c0bc63f92273fd7809dabc554f786',
             'dev_requirement' => false,
         ),
         'laminas/laminas-inputfilter' => array(
@@ -419,12 +419,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-mvc-form' => array(
-            'pretty_version' => '1.1.0',
-            'version' => '1.1.0.0',
+            'pretty_version' => '1.2.0',
+            'version' => '1.2.0.0',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(),
-            'reference' => 'c027f5becb817736096d0967c5e42cd7f746d5e4',
+            'reference' => '9e03ded7e7605a5b1e34a2f187b14d7fd4f1e44f',
             'dev_requirement' => false,
         ),
         'laminas/laminas-mvc-i18n' => array(
@@ -487,7 +487,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '1eaa876e207fcf55316cd5d216a885c7618f6dfc',
+            'reference' => '27072a9c4d2eba46d847bc73752a2c61a64669a2',
             'dev_requirement' => false,
         ),
         'laminas/laminas-paginator' => array(
@@ -518,12 +518,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-servicemanager' => array(
-            'pretty_version' => '3.7.0',
-            'version' => '3.7.0.0',
+            'pretty_version' => '3.10.0',
+            'version' => '3.10.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-servicemanager',
             'aliases' => array(),
-            'reference' => '2b0aee477fdbd3191af7c302b93dbc5fda0626f4',
+            'reference' => 'e52b985909e0940bf22d34f322eb3f48bbef6bd1',
             'dev_requirement' => false,
         ),
         'laminas/laminas-session' => array(
@@ -572,12 +572,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-validator' => array(
-            'pretty_version' => '2.14.5',
-            'version' => '2.14.5.0',
+            'pretty_version' => '2.15.0',
+            'version' => '2.15.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-validator',
             'aliases' => array(),
-            'reference' => '4680bc4241cb5b3ff78954c421fe43105ca413b7',
+            'reference' => '270380e87904f5a1a1fba3059989d4ca157e16a9',
             'dev_requirement' => false,
         ),
         'laminas/laminas-view' => array(
@@ -1204,12 +1204,6 @@
                 0 => '^3.3.0',
             ),
         ),
-        'zendframework/zend-servicemanager' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => '^3.4.0',
-            ),
-        ),
         'zendframework/zend-test' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -1226,12 +1220,6 @@
             'dev_requirement' => false,
             'replaced' => array(
                 0 => '^2.7.1',
-            ),
-        ),
-        'zendframework/zend-validator' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => '^2.13.0',
             ),
         ),
         'zendframework/zend-view' => array(
