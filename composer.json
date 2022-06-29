@@ -24,7 +24,7 @@
         "laminas/laminas-mvc-plugins": "1.2.0",
         "laminas/laminas-psr7bridge": "1.6.0",
         "laminas/laminas-session": "2.12.1",
-        "laminas/laminas-di": "3.7.0",
+        "laminas/laminas-di": "3.8.0",
         "laminas/laminas-paginator": "2.12.2"
     },
     "autoload": {
