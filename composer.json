@@ -25,7 +25,7 @@
         "laminas/laminas-psr7bridge": "1.11.0",
         "laminas/laminas-session": "2.12.1",
         "laminas/laminas-di": "3.9.1",
-        "laminas/laminas-paginator": "2.12.2"
+        "laminas/laminas-paginator": "2.18.1"
     },
     "autoload": {
         "psr-4": {
